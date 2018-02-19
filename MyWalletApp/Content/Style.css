@@ -1,0 +1,26 @@
+﻿body {
+}
+
+header {
+    width: 100%;
+    background-color: aliceblue;
+    color: black;
+    height: 100px;
+}
+
+footer {
+    width: 100%;
+    background-color: aliceblue;
+    color: black;
+    height: 100px;
+}
+
+img {
+    width: 304px;
+    height: 304px;
+    text-align: center;
+}
+
+figure {
+    text-align: center;
+}
