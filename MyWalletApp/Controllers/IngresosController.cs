@@ -1,4 +1,5 @@
 ﻿using MyWalletApp.Logic;
+using MyWalletApp.Logic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,12 @@ namespace MyWalletApp.Controllers
         // GET: Ingresos/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var ingreso = manager.SearchById(id);
+
+            if (ingreso != null)
+                return View(ingreso);
+
+            return HttpNotFound("El ingreso no fue encontrado");
         }
 
         // GET: Ingresos/Create
@@ -37,16 +43,20 @@ namespace MyWalletApp.Controllers
 
         // POST: Ingresos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(IngresoDto ingreso)
         {
+            if (!ModelState.IsValid)
+                return View();
+
             try
             {
-                // TODO: Add insert logic here
+                manager.AddIngreso(ingreso);
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
+                ModelState.AddModelError("exception", ex.Message.ToString());
                 return View();
             }
         }
@@ -54,21 +64,30 @@ namespace MyWalletApp.Controllers
         // GET: Ingresos/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var ingreso = manager.SearchById(id);
+
+            if(ingreso != null)
+                return View(ingreso);
+
+            return HttpNotFound("El ingreso no fue encontrado");
         }
 
         // POST: Ingresos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, IngresoDto ingreso)
         {
+            if (!ModelState.IsValid)
+                return View();
+
             try
             {
-                // TODO: Add update logic here
+                manager.UpdateIngreso(id, ingreso);
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
+                ModelState.AddModelError("exception", ex.Message.ToString());
                 return View();
             }
         }
@@ -76,16 +95,24 @@ namespace MyWalletApp.Controllers
         // GET: Ingresos/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var ingreso = manager.SearchById(id);
+
+            if (ingreso != null)
+                return View(ingreso);
+
+            return HttpNotFound("El ingreso no fue encontrado");
         }
 
         // POST: Ingresos/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, IngresoDto ingreso)
         {
+            if (!ModelState.IsValid)
+                return View();
+
             try
             {
-                // TODO: Add delete logic here
+                manager.DeleteIngreso(ingreso);
 
                 return RedirectToAction("Index");
             }

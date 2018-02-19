@@ -21,33 +21,37 @@
                 @Html.DisplayNameFor(model => model.Monto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Fuente)
+                @Html.DisplayNameFor(model => model.Fuente.Nombre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Monto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fuente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fuente.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
     </table>
+    <p>
+        Total en Ingresos: @Model.Sum(item => item.Monto)
+    </p>
 </body>
 </html>

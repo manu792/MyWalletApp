@@ -40,12 +40,12 @@ namespace MyWalletApp.Data
                     Nombre = "Otro"
                 }
             });
+            dbContext.SaveChanges();
         }
 
         private void SeedServicios()
         {
-            dbContext.Servicios.AddRange(
-                    new List<Servicio>()
+            dbContext.Servicios.AddRange(new List<Servicio>()
                     {
                         new Servicio
                         {
@@ -82,8 +82,7 @@ namespace MyWalletApp.Data
                             Id = 7,
                             Nombre = "Prestamo carro"
                         }
-                    }
-                );
+                    });
             dbContext.SaveChanges();
         }
     }

@@ -1,4 +1,5 @@
-﻿using MyWalletApp.Data.Repositories;
+﻿using MyWalletApp.Data.Entities;
+using MyWalletApp.Data.Repositories;
 using MyWalletApp.Logic.Models;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,60 @@ namespace MyWalletApp.Logic
                 },
                 Fecha = i.Fecha
             }).ToList();
+        }
+
+        public IngresoDto AddIngreso(IngresoDto ingreso)
+        {
+            repository.AddIngreso(new Ingreso()
+            {
+                Monto = ingreso.Monto,
+                FuenteId = 1,
+                Fecha = ingreso.Fecha
+            });
+
+            return ingreso;
+        }
+
+        public IngresoDto SearchById(int id)
+        {
+            var ingreso = repository.SearchById(id);
+
+            if (ingreso == null)
+                return null;
+
+            return new IngresoDto()
+            {
+                Id = ingreso.Id,
+                Monto = ingreso.Monto,
+                Fuente = new FuenteDto()
+                {
+                    Id = ingreso.Fuente.Id,
+                    Nombre = ingreso.Fuente.Nombre
+                },
+                Fecha = ingreso.Fecha
+            };
+        }
+
+        public IngresoDto UpdateIngreso(int id, IngresoDto ingreso)
+        {
+            repository.UpdateIngreso(new Ingreso()
+            {
+                Id = ingreso.Id,
+                Fecha = ingreso.Fecha,
+                FuenteId = 2,
+                Monto = ingreso.Monto
+            });
+
+            return ingreso;
+        }
+
+        public IngresoDto DeleteIngreso(IngresoDto ingreso)
+        {
+            var deletedIngreso = repository.SearchById(ingreso.Id);
+
+            repository.DeleteIngreso(deletedIngreso);
+
+            return ingreso;
         }
     }
 }
