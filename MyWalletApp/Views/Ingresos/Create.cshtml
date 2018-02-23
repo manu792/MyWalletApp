@@ -1,4 +1,4 @@
-﻿@model MyWalletApp.Logic.Models.IngresoDto
+﻿@model MyWalletApp.Models.IngresoViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -27,8 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Fuente.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Fuente.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Fuente.Nombre, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Fuente.Id, Model.FuentesDisponibles, new { @class = "form-control" })
             </div>
         </div>
         

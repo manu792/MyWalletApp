@@ -59,6 +59,7 @@
     <Compile Include="Entities\Servicio.cs" />
     <Compile Include="MyWalletDatabaseInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\FuenteRepository.cs" />
     <Compile Include="Repositories\GastoRepository.cs" />
     <Compile Include="Repositories\IngresoRepository.cs" />
     <Compile Include="Repositories\ServicioRepository.cs" />

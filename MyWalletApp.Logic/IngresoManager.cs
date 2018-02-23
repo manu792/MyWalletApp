@@ -40,7 +40,7 @@ namespace MyWalletApp.Logic
             repository.AddIngreso(new Ingreso()
             {
                 Monto = ingreso.Monto,
-                FuenteId = 1,
+                FuenteId = ingreso.Fuente.Id,
                 Fecha = ingreso.Fecha
             });
 
@@ -73,7 +73,7 @@ namespace MyWalletApp.Logic
             {
                 Id = ingreso.Id,
                 Fecha = ingreso.Fecha,
-                FuenteId = 2,
+                FuenteId = ingreso.Fuente.Id,
                 Monto = ingreso.Monto
             });
 

@@ -1,5 +1,6 @@
 ﻿using MyWalletApp.Logic;
 using MyWalletApp.Logic.Models;
+using MyWalletApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,14 @@ namespace MyWalletApp.Controllers
     public class IngresosController : Controller
     {
         private IngresoManager manager;
+        private FuenteManager fuenteManager;
+        private IEnumerable<FuenteDto> fuentesDisponibles;
 
         public IngresosController()
         {
             manager = new IngresoManager();
+            fuenteManager = new FuenteManager();
+            fuentesDisponibles = fuenteManager.GetAllFuentes().ToList();
         }
 
         // GET: Ingresos
@@ -38,19 +43,33 @@ namespace MyWalletApp.Controllers
         // GET: Ingresos/Create
         public ActionResult Create()
         {
-            return View();
+            var list = fuentesDisponibles.Select(f => new SelectListItem()
+            {
+                Text = f.Nombre,
+                Value = f.Id.ToString()
+            }).ToList();
+            
+            return View(new IngresoViewModel() { FuentesDisponibles = list });
         }
 
         // POST: Ingresos/Create
         [HttpPost]
-        public ActionResult Create(IngresoDto ingreso)
+        public ActionResult Create(IngresoViewModel ingreso)
         {
             if (!ModelState.IsValid)
                 return View();
 
             try
             {
-                manager.AddIngreso(ingreso);
+                manager.AddIngreso(new IngresoDto()
+                {
+                    Monto = (double)ingreso.Monto,
+                    Fuente = new FuenteDto()
+                    {
+                        Id = ingreso.Fuente.Id
+                    },
+                    Fecha = ingreso.Fecha
+                });
 
                 return RedirectToAction("Index");
             }
@@ -64,24 +83,46 @@ namespace MyWalletApp.Controllers
         // GET: Ingresos/Edit/5
         public ActionResult Edit(int id)
         {
+            var list = fuentesDisponibles.Select(f => new SelectListItem()
+            {
+                Text = f.Nombre,
+                Value = f.Id.ToString()
+            }).ToList();
+
             var ingreso = manager.SearchById(id);
 
             if(ingreso != null)
-                return View(ingreso);
+                return View(new IngresoViewModel()
+                {
+                    Id = ingreso.Id,
+                    Monto = ingreso.Monto,
+                    Fuente = ingreso.Fuente,
+                    Fecha = ingreso.Fecha,
+                    FuentesDisponibles = list
+                });
 
             return HttpNotFound("El ingreso no fue encontrado");
         }
 
         // POST: Ingresos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, IngresoDto ingreso)
+        public ActionResult Edit(int id, IngresoViewModel ingreso)
         {
             if (!ModelState.IsValid)
                 return View();
 
             try
             {
-                manager.UpdateIngreso(id, ingreso);
+                manager.UpdateIngreso(id, new IngresoDto()
+                {
+                    Id = ingreso.Id,
+                    Monto = (double)ingreso.Monto,
+                    Fuente = new FuenteDto()
+                    {
+                        Id = ingreso.Fuente.Id
+                    },
+                    Fecha = ingreso.Fecha
+                });
 
                 return RedirectToAction("Index");
             }

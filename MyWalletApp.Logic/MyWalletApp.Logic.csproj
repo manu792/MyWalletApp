@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FuenteManager.cs" />
     <Compile Include="GastoManager.cs" />
     <Compile Include="IngresoManager.cs" />
     <Compile Include="Models\FuenteDto.cs" />
