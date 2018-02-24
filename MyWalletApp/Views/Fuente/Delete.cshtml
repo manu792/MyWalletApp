@@ -1,0 +1,33 @@
+﻿@model MyWalletApp.Logic.Models.FuenteDto
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar Fuente</h2>
+
+<h3>Seguro(a) que desea eliminar esta fuente?</h3>
+<div>
+    <h4>Eliminar Fuente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver a fuentes", "Index")
+        </div>
+    }
+</div>

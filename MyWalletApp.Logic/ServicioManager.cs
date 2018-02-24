@@ -70,12 +70,8 @@ namespace MyWalletApp.Logic
 
         public ServicioDto DeleteServicio(ServicioDto servicio)
         {
-            repository.DeleteServicio(new Servicio()
-            {
-                Id = servicio.Id,
-                Nombre = servicio.Nombre,
-                FechaPago = servicio.FechaPago
-            });
+            var deleteServicio = repository.SearchById(servicio.Id);
+            repository.DeleteServicio(deleteServicio);
 
             return servicio;
         }

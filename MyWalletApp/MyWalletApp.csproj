@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FuenteController.cs" />
     <Compile Include="Controllers\GastosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngresosController.cs" />
@@ -190,6 +191,11 @@
     <Content Include="Views\Servicio\Edit.cshtml" />
     <Content Include="Views\Servicio\Details.cshtml" />
     <Content Include="Views\Servicio\Delete.cshtml" />
+    <Content Include="Views\Fuente\Index.cshtml" />
+    <Content Include="Views\Fuente\Create.cshtml" />
+    <Content Include="Views\Fuente\Details.cshtml" />
+    <Content Include="Views\Fuente\Edit.cshtml" />
+    <Content Include="Views\Fuente\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
