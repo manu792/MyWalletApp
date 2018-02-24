@@ -1,5 +1,6 @@
 ﻿using MyWalletApp.Logic;
 using MyWalletApp.Logic.Models;
+using MyWalletApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,14 @@ namespace MyWalletApp.Controllers
     public class GastosController : Controller
     {
         private GastoManager manager;
+        private ServicioManager servicioManager;
+        private IEnumerable<ServicioDto> serviciosDisponibles;
 
         public GastosController()
         {
             manager = new GastoManager();
+            servicioManager = new ServicioManager();
+            serviciosDisponibles = servicioManager.GetAllServicios();
         }
 
         // GET: Gastos
@@ -38,16 +43,35 @@ namespace MyWalletApp.Controllers
         // GET: Gastos/Create
         public ActionResult Create()
         {
-            return View();
+            var servicios = serviciosDisponibles.Select(s => new SelectListItem()
+            {
+                Text = s.Nombre,
+                Value = s.Id.ToString()
+                
+            }).ToList();
+
+            return View(new GastoViewModel()
+            {
+                ServiciosDisponibles = servicios
+            });
         }
 
         // POST: Gastos/Create
         [HttpPost]
-        public ActionResult Create(GastoDto gasto)
+        public ActionResult Create(GastoViewModel gasto)
         {
             try
             {
-                manager.AddGasto(gasto);
+                manager.AddGasto(new GastoDto()
+                {
+                    Id = gasto.Id,
+                    Monto = (double)gasto.Monto,
+                    Fecha = gasto.Fecha,
+                    Servicio = new ServicioDto()
+                    {
+                        Id = gasto.ServicioId
+                    }
+                });
 
                 return RedirectToAction("Index");
             }
@@ -63,19 +87,42 @@ namespace MyWalletApp.Controllers
         {
             var gasto = manager.SearchById(id);
 
+            var servicios = serviciosDisponibles.Select(s => new SelectListItem()
+            {
+                Text = s.Nombre,
+                Value = s.Id.ToString()
+
+            }).ToList();
+
             if (gasto != null)
-                return View(gasto);
+                return View(new GastoViewModel()
+                {
+                    Id = gasto.Id,
+                    Monto = gasto.Monto,
+                    Fecha = gasto.Fecha,
+                    ServicioId = gasto.Servicio.Id,
+                    ServiciosDisponibles = servicios
+                });
 
             return HttpNotFound("El gasto no fue encontrado");
         }
 
         // POST: Gastos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, GastoDto gasto)
+        public ActionResult Edit(int id, GastoViewModel gasto)
         {
             try
             {
-                manager.UpdateGasto(gasto);
+                manager.UpdateGasto(new GastoDto()
+                {
+                    Id = gasto.Id,
+                    Monto = (double)gasto.Monto,
+                    Fecha = gasto.Fecha,
+                    Servicio = new ServicioDto()
+                    {
+                        Id = gasto.ServicioId
+                    }
+                });
 
                 return RedirectToAction("Index");
             }

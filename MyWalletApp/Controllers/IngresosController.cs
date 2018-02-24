@@ -19,14 +19,33 @@ namespace MyWalletApp.Controllers
         {
             manager = new IngresoManager();
             fuenteManager = new FuenteManager();
-            fuentesDisponibles = fuenteManager.GetAllFuentes().ToList();
+            fuentesDisponibles = fuenteManager.GetAllFuentes();
         }
 
         // GET: Ingresos
         public ActionResult Index()
         {
             var ingresos = manager.GetAllIngresos();
-            return View(ingresos);
+
+            return View(new SearchListViewModel()
+            {
+                Ingresos = ingresos
+            });
+        }
+
+        // POST: Ingresos
+        [HttpPost]
+        public ActionResult Index(SearchListViewModel model)
+        {
+            var ingresos = manager.GetAllIngresos();
+
+            if (!string.IsNullOrEmpty(model.SearchCriteria))
+                ingresos = ingresos.Where(i => i.Fuente.Nombre.ToLower().Equals(model.SearchCriteria.ToLower()));
+
+            return View(new SearchListViewModel()
+            {
+                Ingresos = ingresos
+            });
         }
 
         // GET: Ingresos/Details/5

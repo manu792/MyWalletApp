@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyWalletApp.Logic.Models.IngresoDto>
+﻿@model MyWalletApp.Models.SearchListViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,49 +9,57 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Ingresos</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Monto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fuente.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+    @using (Html.BeginForm())
+    {
+        <p>
+            @Html.ActionLink("Agregar Ingreso", "Create")
+        </p>
+        <div class="search col-md-12">
+            @Html.DisplayNameFor(model => model.SearchCriteria)
+            @Html.EditorFor(model => model.SearchCriteria, new { htmlAttributes = new { @class = "form-control search" } })
+            <input type="submit" value="Buscar" class="btn btn-default" />
+        </div>
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Monto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fuente.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fecha)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
+                <th>
+                    @Html.Label("Monto")
+                </th>
+                <th>
+                    @Html.Label("Fuente")
+                </th>
+                <th>
+                    @Html.Label("Fecha")
+                </th>
+                <th></th>
             </tr>
-        }
 
-    </table>
-    <p>
-        Total en Ingresos: @Model.Sum(item => item.Monto)
-    </p>
+            @foreach (var item in Model.Ingresos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Monto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fuente.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <p>
+            Total en Ingresos: @Model.Ingresos.Sum(item => item.Monto)
+        </p>
+    }
 </body>
 </html>
