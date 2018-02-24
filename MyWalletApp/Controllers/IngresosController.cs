@@ -87,7 +87,7 @@ namespace MyWalletApp.Controllers
                     {
                         Id = ingreso.Fuente.Id
                     },
-                    Fecha = ingreso.Fecha
+                    Fecha = Convert.ToDateTime(ingreso.Fecha)
                 });
 
                 return RedirectToAction("Index");
@@ -140,7 +140,7 @@ namespace MyWalletApp.Controllers
                     {
                         Id = ingreso.Fuente.Id
                     },
-                    Fecha = ingreso.Fecha
+                    Fecha = Convert.ToDateTime(ingreso.Fecha)
                 });
 
                 return RedirectToAction("Index");

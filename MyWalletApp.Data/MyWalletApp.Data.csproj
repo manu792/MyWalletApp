@@ -54,6 +54,10 @@
     <Compile Include="Migrations\201802171519019_Initial.Designer.cs">
       <DependentUpon>201802171519019_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802241745445_AddFechaPago.cs" />
+    <Compile Include="Migrations\201802241745445_AddFechaPago.Designer.cs">
+      <DependentUpon>201802241745445_AddFechaPago.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyWalletContext.cs" />
     <Compile Include="Entities\Servicio.cs" />
@@ -71,6 +75,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201802171519019_Initial.resx">
       <DependentUpon>201802171519019_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802241745445_AddFechaPago.resx">
+      <DependentUpon>201802241745445_AddFechaPago.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

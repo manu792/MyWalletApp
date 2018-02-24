@@ -50,37 +50,44 @@ namespace MyWalletApp.Data
                         new Servicio
                         {
                             Id = 1,
-                            Nombre = "Netflix"
+                            Nombre = "Netflix",
+                            FechaPago = Convert.ToDateTime("2017-02-24")
                         },
                         new Servicio
                         {
                             Id = 2,
-                            Nombre = "HBO GO"
+                            Nombre = "HBO GO",
+                            FechaPago = Convert.ToDateTime("2017-02-20")
                         },
                         new Servicio
                         {
                             Id = 3,
-                            Nombre = "Agua"
+                            Nombre = "Agua",
+                            FechaPago = Convert.ToDateTime("2017-02-15")
                         },
                         new Servicio
                         {
                             Id = 4,
-                            Nombre = "Luz"
+                            Nombre = "Luz",
+                            FechaPago = Convert.ToDateTime("2017-02-02")
                         },
                         new Servicio
                         {
                             Id = 5,
-                            Nombre = "Celular"
+                            Nombre = "Celular",
+                            FechaPago = Convert.ToDateTime("2017-02-15")
                         },
                         new Servicio
                         {
                             Id = 6,
-                            Nombre = "Cable"
+                            Nombre = "Cable",
+                            FechaPago = Convert.ToDateTime("2017-02-23")
                         },
                         new Servicio
                         {
                             Id = 7,
-                            Nombre = "Prestamo carro"
+                            Nombre = "Prestamo carro",
+                            FechaPago = Convert.ToDateTime("2017-02-15")
                         }
                     });
             dbContext.SaveChanges();

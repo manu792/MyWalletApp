@@ -16,10 +16,8 @@ namespace MyWalletApp.Models
         public double? Monto { get; set; }
         [Required(ErrorMessage = "Debe seleccionar un servicio de la lista de servicios")]
         public int ServicioId { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [Required(ErrorMessage = "El campo Fecha es requerido")]
-        public DateTime Fecha { get; set; }
+        public DateTime? Fecha { get; set; }
         [DisplayName("Servicio")]
         public IEnumerable<SelectListItem> ServiciosDisponibles { get; set; }
     }

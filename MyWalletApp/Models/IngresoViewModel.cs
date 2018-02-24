@@ -16,10 +16,8 @@ namespace MyWalletApp.Models
         public double? Monto { get; set; }
         [Required(ErrorMessage = "El campo Fuente es requerido")]
         public FuenteDto Fuente { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [Required(ErrorMessage = "El campo Fecha es requerido")]
-        public DateTime Fecha { get; set; }
+        public DateTime? Fecha { get; set; }
         [DisplayName("Fuente")]
         public IEnumerable<SelectListItem> FuentesDisponibles { get; set; }
     }

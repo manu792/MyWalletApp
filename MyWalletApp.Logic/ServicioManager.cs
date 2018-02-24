@@ -25,8 +25,59 @@ namespace MyWalletApp.Logic
             return servicios.Select(s => new ServicioDto()
             {
                 Id = s.Id,
-                Nombre = s.Nombre
+                Nombre = s.Nombre,
+                FechaPago = s.FechaPago
             }).ToList();
+        }
+
+        public ServicioDto AddServicio(ServicioDto servicio)
+        {
+            repository.AddServicio(new Servicio()
+            {
+                Nombre = servicio.Nombre,
+                FechaPago = servicio.FechaPago
+            });
+
+            return servicio;
+        }
+
+        public ServicioDto SearchById(int id)
+        {
+            var servicio = repository.SearchById(id);
+
+            if (servicio == null)
+                return null;
+
+            return new ServicioDto()
+            {
+                Id = servicio.Id,
+                Nombre = servicio.Nombre,
+                FechaPago = servicio.FechaPago
+            };
+        }
+
+        public ServicioDto UpdateServicio(int id, ServicioDto servicio)
+        {
+            repository.UpdateServicio(new Servicio()
+            {
+                Id = servicio.Id,
+                Nombre = servicio.Nombre,
+                FechaPago = servicio.FechaPago
+            });
+
+            return servicio;
+        }
+
+        public ServicioDto DeleteServicio(ServicioDto servicio)
+        {
+            repository.DeleteServicio(new Servicio()
+            {
+                Id = servicio.Id,
+                Nombre = servicio.Nombre,
+                FechaPago = servicio.FechaPago
+            });
+
+            return servicio;
         }
     }
 }

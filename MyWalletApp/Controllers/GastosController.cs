@@ -66,7 +66,7 @@ namespace MyWalletApp.Controllers
                 {
                     Id = gasto.Id,
                     Monto = (double)gasto.Monto,
-                    Fecha = gasto.Fecha,
+                    Fecha = Convert.ToDateTime(gasto.Fecha),
                     Servicio = new ServicioDto()
                     {
                         Id = gasto.ServicioId
@@ -117,7 +117,7 @@ namespace MyWalletApp.Controllers
                 {
                     Id = gasto.Id,
                     Monto = (double)gasto.Monto,
-                    Fecha = gasto.Fecha,
+                    Fecha = Convert.ToDateTime(gasto.Fecha),
                     Servicio = new ServicioDto()
                     {
                         Id = gasto.ServicioId

@@ -12,5 +12,6 @@ namespace MyWalletApp.Data.Entities
         public int Id { get; set; }
         [DisplayName("Nombre Servicio")]
         public string Nombre { get; set; }
+        public DateTime FechaPago { get; set; }
     }
 }
