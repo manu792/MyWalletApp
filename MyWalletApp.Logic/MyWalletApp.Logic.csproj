@@ -47,6 +47,7 @@
     <Compile Include="Models\FuenteDto.cs" />
     <Compile Include="Models\GastoDto.cs" />
     <Compile Include="Models\IngresoDto.cs" />
+    <Compile Include="Models\ITransaction.cs" />
     <Compile Include="Models\ServicioDto.cs" />
     <Compile Include="ServicioManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

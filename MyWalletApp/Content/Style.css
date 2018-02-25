@@ -5,7 +5,11 @@ footer {
     margin-top: 30px;
 }
 
-.search {
+/*.search {
     width: 70%;
     display: inline;
+}*/
+.row {
+    margin-top: 10px;
+    margin-bottom: 20px;
 }

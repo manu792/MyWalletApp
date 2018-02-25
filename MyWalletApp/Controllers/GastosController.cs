@@ -26,7 +26,43 @@ namespace MyWalletApp.Controllers
         public ActionResult Index()
         {
             var gastos = manager.GetAllGastos();
-            return View(gastos);
+
+            var newGastos = new SearchViewModel<GastoDto>()
+            {
+                Transacciones = gastos,
+                FuentesServiciosDisponibles = serviciosDisponibles.Select(s => new SelectListItem()
+                {
+                    Text = s.Nombre,
+                    Value = s.Id.ToString()
+                }).ToList()
+            };
+
+            return View(newGastos);
+        }
+
+        // POST: Gastos
+        [HttpPost]
+        public ActionResult Index(SearchViewModel<GastoDto> searchViewModel)
+        {
+            var gastos = manager.GetAllGastos();
+            var lista = new List<SelectListItem>() { new SelectListItem() { Text = "Elija un servicio", Value = "-1" } };
+
+            lista.AddRange(serviciosDisponibles.Select(f => new SelectListItem()
+            {
+                Text = f.Nombre,
+                Value = f.Id.ToString()
+            }).ToList());
+
+            if (searchViewModel.FechaDesde != null && searchViewModel.FechaHasta != null)
+                gastos = gastos.Where(i => i.Fecha >= searchViewModel.FechaDesde && i.Fecha <= searchViewModel.FechaHasta);
+            if (searchViewModel.FuenteId != -1)
+                gastos = gastos.Where(i => i.Servicio.Id == searchViewModel.FuenteId);
+
+            return View(new SearchViewModel<GastoDto>()
+            {
+                Transacciones = gastos,
+                FuentesServiciosDisponibles = lista
+            });
         }
 
         // GET: Gastos/Details/5
@@ -35,7 +71,21 @@ namespace MyWalletApp.Controllers
             var gasto = manager.SearchById(id);
 
             if (gasto != null)
-                return View(gasto);
+                return View(new GastoViewModel()
+                {
+                    Gasto = new GastoDto()
+                    {
+                        Id = gasto.Id,
+                        Monto = gasto.Monto,
+                        Fecha = gasto.Fecha,
+                        Servicio = new ServicioDto()
+                        {
+                            Id = gasto.Servicio.Id,
+                            Nombre = gasto.Servicio.Nombre,
+                            FechaPago = gasto.Servicio.FechaPago
+                        }
+                    }
+                });
 
             return HttpNotFound("El gasto no fue encontrado");
         }
@@ -58,18 +108,20 @@ namespace MyWalletApp.Controllers
 
         // POST: Gastos/Create
         [HttpPost]
-        public ActionResult Create(GastoViewModel gasto)
+        public ActionResult Create(GastoViewModel gastoViewModel)
         {
             try
             {
                 manager.AddGasto(new GastoDto()
                 {
-                    Id = gasto.Id,
-                    Monto = (double)gasto.Monto,
-                    Fecha = Convert.ToDateTime(gasto.Fecha),
+                    Id = gastoViewModel.Gasto.Id,
+                    Monto = (double)gastoViewModel.Gasto.Monto,
+                    Fecha = Convert.ToDateTime(gastoViewModel.Gasto.Fecha),
                     Servicio = new ServicioDto()
                     {
-                        Id = gasto.ServicioId
+                        Id = gastoViewModel.Gasto.Servicio.Id,
+                        Nombre = gastoViewModel.Gasto.Servicio.Nombre,
+                        FechaPago = gastoViewModel.Gasto.Servicio.FechaPago
                     }
                 });
 
@@ -97,10 +149,18 @@ namespace MyWalletApp.Controllers
             if (gasto != null)
                 return View(new GastoViewModel()
                 {
-                    Id = gasto.Id,
-                    Monto = gasto.Monto,
-                    Fecha = gasto.Fecha,
-                    ServicioId = gasto.Servicio.Id,
+                    Gasto = new GastoDto()
+                    {
+                        Id = gasto.Id,
+                        Monto = gasto.Monto,
+                        Fecha = gasto.Fecha,
+                        Servicio = new ServicioDto()
+                        {
+                            Id = gasto.Servicio.Id,
+                            Nombre = gasto.Servicio.Nombre,
+                            FechaPago = gasto.Servicio.FechaPago
+                        }
+                    },
                     ServiciosDisponibles = servicios
                 });
 
@@ -109,18 +169,18 @@ namespace MyWalletApp.Controllers
 
         // POST: Gastos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, GastoViewModel gasto)
+        public ActionResult Edit(int id, GastoViewModel gastoViewModel)
         {
             try
             {
                 manager.UpdateGasto(new GastoDto()
                 {
-                    Id = gasto.Id,
-                    Monto = (double)gasto.Monto,
-                    Fecha = Convert.ToDateTime(gasto.Fecha),
+                    Id = gastoViewModel.Gasto.Id,
+                    Monto = (double)gastoViewModel.Gasto.Monto,
+                    Fecha = Convert.ToDateTime(gastoViewModel.Gasto.Fecha),
                     Servicio = new ServicioDto()
                     {
-                        Id = gasto.ServicioId
+                        Id = gastoViewModel.Gasto.Servicio.Id
                     }
                 });
 
@@ -139,17 +199,32 @@ namespace MyWalletApp.Controllers
             var gasto = manager.SearchById(id);
 
             if (gasto != null)
-                return View(gasto);
+                return View(new GastoViewModel()
+                {
+                    Gasto = new GastoDto()
+                    {
+                        Id = gasto.Id,
+                        Monto = gasto.Monto,
+                        Fecha = gasto.Fecha,
+                        Servicio = new ServicioDto()
+                        {
+                            Id = gasto.Servicio.Id,
+                            Nombre = gasto.Servicio.Nombre,
+                            FechaPago = gasto.Servicio.FechaPago
+                        }
+                    }
+                });
 
             return HttpNotFound("El gasto no fue encontrado");
         }
 
         // POST: Gastos/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, GastoDto gasto)
+        public ActionResult Delete(int id, GastoViewModel gastoViewModel)
         {
             try
             {
+                var gasto = manager.SearchById(id);
                 manager.DeleteGasto(gasto);
 
                 return RedirectToAction("Index");

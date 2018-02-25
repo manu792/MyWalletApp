@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace MyWalletApp.Logic.Models
 {
-    public class GastoDto
+    public class GastoDto : ITransaction
     {
         public int Id { get; set; }
         public double Monto { get; set; }
         public ServicioDto Servicio { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [Required(ErrorMessage = "El campo Fecha es requerido")]
-        public DateTime Fecha { get; set; }
+        public DateTime? Fecha { get; set; }
     }
 }

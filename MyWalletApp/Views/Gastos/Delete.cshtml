@@ -1,11 +1,11 @@
-﻿@model MyWalletApp.Logic.Models.GastoDto
+﻿@model MyWalletApp.Models.GastoViewModel
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Gasto</h2>
 
 <h3>Seguro(a) que desea eliminar este gasto?</h3>
 <div>
@@ -13,27 +13,27 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Monto)
+            @Html.DisplayNameFor(model => model.Gasto.Monto)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Monto)
+            @Html.DisplayFor(model => model.Gasto.Monto)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Servicio.Nombre)
+            @Html.DisplayNameFor(model => model.Gasto.Servicio.Nombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Servicio.Nombre)
+            @Html.DisplayFor(model => model.Gasto.Servicio.Nombre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Fecha)
+            @Html.DisplayNameFor(model => model.Gasto.Fecha)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Fecha)
+            @Html.DisplayFor(model => model.Gasto.Fecha)
         </dd>
 
     </dl>
@@ -42,8 +42,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver a gastos", "Index", new { id = Model.Gasto.Id })
         </div>
     }
 </div>

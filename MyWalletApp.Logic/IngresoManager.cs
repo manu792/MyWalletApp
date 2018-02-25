@@ -41,7 +41,7 @@ namespace MyWalletApp.Logic
             {
                 Monto = ingreso.Monto,
                 FuenteId = ingreso.Fuente.Id,
-                Fecha = ingreso.Fecha
+                Fecha = Convert.ToDateTime(ingreso.Fecha)
             });
 
             return ingreso;
@@ -72,7 +72,7 @@ namespace MyWalletApp.Logic
             repository.UpdateIngreso(new Ingreso()
             {
                 Id = ingreso.Id,
-                Fecha = ingreso.Fecha,
+                Fecha = Convert.ToDateTime(ingreso.Fecha),
                 FuenteId = ingreso.Fuente.Id,
                 Monto = ingreso.Monto
             });

@@ -61,7 +61,7 @@ namespace MyWalletApp.Logic
             {
                 Monto = gasto.Monto,
                 ServicioId = 1,
-                Fecha = gasto.Fecha
+                Fecha = Convert.ToDateTime(gasto.Fecha)
             });
 
             return gasto;
@@ -74,7 +74,7 @@ namespace MyWalletApp.Logic
                 Id = gasto.Id,
                 Monto = gasto.Monto,
                 ServicioId = 1,
-                Fecha = gasto.Fecha
+                Fecha = Convert.ToDateTime(gasto.Fecha)
             });
 
             return gasto;

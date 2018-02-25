@@ -1,43 +1,43 @@
-﻿@model MyWalletApp.Logic.Models.GastoDto
+﻿@model MyWalletApp.Models.GastoViewModel
 
 @{
     ViewBag.Title = "Detalles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Detalle</h2>
 
 <div>
-    <h4>Detalles del Gasto</h4>
+    <h4>Detalle Gasto</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Monto)
+            @Html.DisplayNameFor(model => model.Gasto.Monto)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Monto)
+            @Html.DisplayFor(model => model.Gasto.Monto)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Servicio.Nombre)
+            @Html.DisplayNameFor(model => model.Gasto.Servicio.Nombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Servicio.Nombre)
+            @Html.DisplayFor(model => model.Gasto.Servicio.Nombre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Fecha)
+            @Html.DisplayNameFor(model => model.Gasto.Fecha)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Fecha)
+            @Html.DisplayFor(model => model.Gasto.Fecha)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Gasto.Id }) |
+    @Html.ActionLink("Volver a gastos", "Index")
 </p>

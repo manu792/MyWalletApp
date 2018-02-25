@@ -34,16 +34,16 @@ namespace MyWalletApp.Controllers
                 Value = f.Id.ToString()
             }).ToList());
 
-            return View(new SearchListViewModel()
+            return View(new SearchViewModel<IngresoDto>()
             {
-                Ingresos = ingresos,
-                FuentesDisponibles = lista
+                Transacciones = ingresos,
+                FuentesServiciosDisponibles = lista
             });
         }
 
         // POST: Ingresos
         [HttpPost]
-        public ActionResult Index(SearchListViewModel model)
+        public ActionResult Index(SearchViewModel<IngresoDto> model)
         {
             var ingresos = manager.GetAllIngresos();
             var lista = new List<SelectListItem>() { new SelectListItem() { Text = "Elija una fuente", Value = "-1" } };
@@ -59,10 +59,10 @@ namespace MyWalletApp.Controllers
             if (model.FuenteId != -1)
                 ingresos = ingresos.Where(i => i.Fuente.Id == model.FuenteId);
 
-            return View(new SearchListViewModel()
+            return View(new SearchViewModel<IngresoDto>()
             {
-                Ingresos = ingresos,
-                FuentesDisponibles = lista
+                Transacciones = ingresos,
+                FuentesServiciosDisponibles = lista
             });
         }
 
@@ -72,7 +72,20 @@ namespace MyWalletApp.Controllers
             var ingreso = manager.SearchById(id);
 
             if (ingreso != null)
-                return View(ingreso);
+                return View(new IngresoViewModel()
+                {
+                    Ingreso = new IngresoDto()
+                    {
+                        Id = ingreso.Id,
+                        Monto = ingreso.Monto,
+                        Fecha = ingreso.Fecha,
+                        Fuente = new FuenteDto()
+                        {
+                            Id = ingreso.Fuente.Id,
+                            Nombre = ingreso.Fuente.Nombre
+                        }
+                    }
+                });
 
             return HttpNotFound("El ingreso no fue encontrado");
         }
@@ -91,26 +104,26 @@ namespace MyWalletApp.Controllers
 
         // POST: Ingresos/Create
         [HttpPost]
-        public ActionResult Create(IngresoViewModel ingreso)
+        public ActionResult Create(IngresoViewModel ingresoViewModel)
         {
             if (!ModelState.IsValid)
                 return View();
-
+            
             try
             {
                 manager.AddIngreso(new IngresoDto()
                 {
-                    Monto = (double)ingreso.Monto,
+                    Monto = (double)ingresoViewModel.Ingreso.Monto,
                     Fuente = new FuenteDto()
                     {
-                        Id = ingreso.Fuente.Id
+                        Id = ingresoViewModel.Ingreso.Fuente.Id
                     },
-                    Fecha = Convert.ToDateTime(ingreso.Fecha)
+                    Fecha = Convert.ToDateTime(ingresoViewModel.Ingreso.Fecha)
                 });
 
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError("exception", ex.Message.ToString());
                 return View();
@@ -131,10 +144,13 @@ namespace MyWalletApp.Controllers
             if(ingreso != null)
                 return View(new IngresoViewModel()
                 {
-                    Id = ingreso.Id,
-                    Monto = ingreso.Monto,
-                    Fuente = ingreso.Fuente,
-                    Fecha = ingreso.Fecha,
+                    Ingreso = new IngresoDto()
+                    {
+                        Id = ingreso.Id,
+                        Monto = ingreso.Monto,
+                        Fuente = ingreso.Fuente,
+                        Fecha = ingreso.Fecha,
+                    },
                     FuentesDisponibles = list
                 });
 
@@ -143,7 +159,7 @@ namespace MyWalletApp.Controllers
 
         // POST: Ingresos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, IngresoViewModel ingreso)
+        public ActionResult Edit(int id, IngresoViewModel ingresoViewModel)
         {
             if (!ModelState.IsValid)
                 return View();
@@ -152,13 +168,13 @@ namespace MyWalletApp.Controllers
             {
                 manager.UpdateIngreso(id, new IngresoDto()
                 {
-                    Id = ingreso.Id,
-                    Monto = (double)ingreso.Monto,
+                    Id = ingresoViewModel.Ingreso.Id,
+                    Monto = (double)ingresoViewModel.Ingreso.Monto,
                     Fuente = new FuenteDto()
                     {
-                        Id = ingreso.Fuente.Id
+                        Id = ingresoViewModel.Ingreso.Fuente.Id
                     },
-                    Fecha = Convert.ToDateTime(ingreso.Fecha)
+                    Fecha = Convert.ToDateTime(ingresoViewModel.Ingreso.Fecha)
                 });
 
                 return RedirectToAction("Index");
@@ -176,20 +192,35 @@ namespace MyWalletApp.Controllers
             var ingreso = manager.SearchById(id);
 
             if (ingreso != null)
-                return View(ingreso);
+                return View(new IngresoViewModel()
+                {
+                    Ingreso = new IngresoDto()
+                    {
+                        Id = ingreso.Id,
+                        Monto = ingreso.Monto,
+                        Fecha = ingreso.Fecha,
+                        Fuente = new FuenteDto()
+                        {
+                            Id = ingreso.Fuente.Id,
+                            Nombre = ingreso.Fuente.Nombre
+                        }
+                    }
+                });
 
             return HttpNotFound("El ingreso no fue encontrado");
         }
 
         // POST: Ingresos/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, IngresoDto ingreso)
+        public ActionResult Delete(int id, IngresoViewModel ingresoViewModel)
         {
             if (!ModelState.IsValid)
                 return View();
 
             try
             {
+                var ingreso = manager.SearchById(id);
+
                 manager.DeleteIngreso(ingreso);
 
                 return RedirectToAction("Index");
