@@ -26,10 +26,18 @@ namespace MyWalletApp.Controllers
         public ActionResult Index()
         {
             var ingresos = manager.GetAllIngresos();
+            var lista = new List<SelectListItem>() { new SelectListItem() { Text = "Elija una fuente", Value = "-1" } };
+
+            lista.AddRange(fuentesDisponibles.Select(f => new SelectListItem()
+            {
+                Text = f.Nombre,
+                Value = f.Id.ToString()
+            }).ToList());
 
             return View(new SearchListViewModel()
             {
-                Ingresos = ingresos
+                Ingresos = ingresos,
+                FuentesDisponibles = lista
             });
         }
 
@@ -38,13 +46,23 @@ namespace MyWalletApp.Controllers
         public ActionResult Index(SearchListViewModel model)
         {
             var ingresos = manager.GetAllIngresos();
+            var lista = new List<SelectListItem>() { new SelectListItem() { Text = "Elija una fuente", Value = "-1" } };
 
-            if (!string.IsNullOrEmpty(model.SearchCriteria))
-                ingresos = ingresos.Where(i => i.Fuente.Nombre.ToLower().Equals(model.SearchCriteria.ToLower()));
+            lista.AddRange(fuentesDisponibles.Select(f => new SelectListItem()
+            {
+                Text = f.Nombre,
+                Value = f.Id.ToString()
+            }).ToList());
+
+            if (model.FechaDesde != null && model.FechaHasta != null)
+                ingresos = ingresos.Where(i => i.Fecha >= model.FechaDesde && i.Fecha <= model.FechaHasta);
+            if (model.FuenteId != -1)
+                ingresos = ingresos.Where(i => i.Fuente.Id == model.FuenteId);
 
             return View(new SearchListViewModel()
             {
-                Ingresos = ingresos
+                Ingresos = ingresos,
+                FuentesDisponibles = lista
             });
         }
 
