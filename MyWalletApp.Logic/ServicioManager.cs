@@ -75,5 +75,17 @@ namespace MyWalletApp.Logic
 
             return servicio;
         }
+
+        public IEnumerable<ServicioDto> GetServiciosWithinNextFiveDays()
+        {
+            var servicios = repository.GetServiciosWithinNextFiveDays();
+
+            return servicios.Select(s => new ServicioDto()
+            {
+                Id = s.Id,
+                Nombre = s.Nombre,
+                FechaPago = s.FechaPago
+            }).ToList();
+        }
     }
 }

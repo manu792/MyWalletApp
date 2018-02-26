@@ -26,6 +26,7 @@ namespace MyWalletApp.Controllers
         public ActionResult Index()
         {
             var gastos = manager.GetAllGastos();
+            var proximosPagos = servicioManager.GetServiciosWithinNextFiveDays();
 
             var newGastos = new SearchViewModel<GastoDto>()
             {
@@ -34,7 +35,8 @@ namespace MyWalletApp.Controllers
                 {
                     Text = s.Nombre,
                     Value = s.Id.ToString()
-                }).ToList()
+                }).ToList(),
+                ProximosPagos = proximosPagos
             };
 
             return View(newGastos);

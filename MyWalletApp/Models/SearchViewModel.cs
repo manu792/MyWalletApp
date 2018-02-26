@@ -25,5 +25,7 @@ namespace MyWalletApp.Models
         public int FuenteId { get; set; }
         [DisplayName("Fuentes")]
         public IEnumerable<SelectListItem> FuentesServiciosDisponibles { get; set; }
+        [DisplayName("Pagos proximos")]
+        public IEnumerable<ServicioDto> ProximosPagos { get; set; }
     }
 }

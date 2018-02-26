@@ -51,43 +51,50 @@ namespace MyWalletApp.Data
                         {
                             Id = 1,
                             Nombre = "Netflix",
-                            FechaPago = Convert.ToDateTime("2017-02-24")
+                            FechaPago = Convert.ToDateTime("2018-02-24"),
+                            EsPorMes = true
                         },
                         new Servicio
                         {
                             Id = 2,
                             Nombre = "HBO GO",
-                            FechaPago = Convert.ToDateTime("2017-02-20")
+                            FechaPago = Convert.ToDateTime("2018-02-20"),
+                            EsPorMes = true
                         },
                         new Servicio
                         {
                             Id = 3,
                             Nombre = "Agua",
-                            FechaPago = Convert.ToDateTime("2017-02-15")
+                            FechaPago = Convert.ToDateTime("2018-02-15"),
+                            EsPorMes = true
                         },
                         new Servicio
                         {
                             Id = 4,
                             Nombre = "Luz",
-                            FechaPago = Convert.ToDateTime("2017-02-02")
+                            FechaPago = Convert.ToDateTime("2018-02-02"),
+                            EsPorMes = true
                         },
                         new Servicio
                         {
                             Id = 5,
                             Nombre = "Celular",
-                            FechaPago = Convert.ToDateTime("2017-02-15")
+                            FechaPago = Convert.ToDateTime("2018-02-15"),
+                            EsPorMes = true
                         },
                         new Servicio
                         {
                             Id = 6,
                             Nombre = "Cable",
-                            FechaPago = Convert.ToDateTime("2017-02-23")
+                            FechaPago = Convert.ToDateTime("2018-02-23"),
+                            EsPorMes = true
                         },
                         new Servicio
                         {
                             Id = 7,
                             Nombre = "Prestamo carro",
-                            FechaPago = Convert.ToDateTime("2017-02-15")
+                            FechaPago = Convert.ToDateTime("2018-02-15"),
+                            EsPorMes = false
                         }
                     });
             dbContext.SaveChanges();

@@ -13,5 +13,6 @@ namespace MyWalletApp.Data.Entities
         [DisplayName("Nombre Servicio")]
         public string Nombre { get; set; }
         public DateTime FechaPago { get; set; }
+        public bool EsPorMes { get; set; }
     }
 }

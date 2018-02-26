@@ -1,6 +1,7 @@
 ﻿using MyWalletApp.Data.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,33 @@ namespace MyWalletApp.Data.Repositories
             context.SaveChanges();
 
             return servicio;
+        }
+
+        public IEnumerable<Servicio> GetServiciosWithinNextFiveDays()
+        {
+            var today = DateTime.Now;
+            var until = DateTime.Now.AddDays(5);
+            List<Servicio> serviciosProximos = new List<Servicio>();
+
+            serviciosProximos.AddRange(context.Servicios.Where(s => !s.EsPorMes &&
+                s.FechaPago >= today && s.FechaPago <= until).ToList());
+            
+
+            if (today.Month == until.Month)
+            {
+                serviciosProximos.AddRange(context.Servicios
+                .Where(g => g.EsPorMes && g.FechaPago.Day >= today.Day && g.FechaPago.Day <= until.Day)
+                .ToList());
+            }
+            else
+            {
+                serviciosProximos.AddRange(context.Servicios
+                .Where(g => g.EsPorMes && g.FechaPago.Day >= DateTime.Now.Day && g.FechaPago.Day <= 31 ||
+                       g.EsPorMes && g.FechaPago.Day >= 1 && g.FechaPago.Day <= until.Day)
+                .ToList());
+            }
+
+            return serviciosProximos;
         }
     }
 }
