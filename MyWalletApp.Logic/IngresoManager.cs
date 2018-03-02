@@ -35,6 +35,28 @@ namespace MyWalletApp.Logic
             }).ToList();
         }
 
+        public IEnumerable<IngresoDto> GetIngresosByDateRange(DateTime? start = null, DateTime? end = null)
+        {
+            if(start == null || end == null)
+            {
+                start = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                end = DateTime.Now;
+            }
+            var ingresos = repository.GetIngresosByDateRange(Convert.ToDateTime(start), Convert.ToDateTime(end));
+
+            return ingresos.Select(i => new IngresoDto()
+            {
+                Id = i.Id,
+                Monto = i.Monto,
+                Fuente = new FuenteDto()
+                {
+                    Id = i.Fuente.Id,
+                    Nombre = i.Fuente.Nombre
+                },
+                Fecha = i.Fecha
+            }).ToList();
+        }
+
         public IngresoDto AddIngreso(IngresoDto ingreso)
         {
             repository.AddIngreso(new Ingreso()

@@ -35,6 +35,28 @@ namespace MyWalletApp.Logic
             }).ToList();
         }
 
+        public IEnumerable<GastoDto> GetGastosByDateRange(DateTime? start = null, DateTime? end = null)
+        {
+            if (start == null || end == null)
+            {
+                start = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                end = DateTime.Now;
+            }
+            var ingresos = repository.GetGastosByDateRange(Convert.ToDateTime(start), Convert.ToDateTime(end));
+
+            return ingresos.Select(i => new GastoDto()
+            {
+                Id = i.Id,
+                Monto = i.Monto,
+                Servicio = new ServicioDto()
+                {
+                    Id = i.Servicio.Id,
+                    Nombre = i.Servicio.Nombre
+                },
+                Fecha = i.Fecha
+            }).ToList();
+        }
+
         public GastoDto SearchById(int id)
         {
             var gasto = repository.SearchById(id);

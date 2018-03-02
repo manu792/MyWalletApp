@@ -50,5 +50,18 @@ namespace MyWalletApp.Data.Repositories
 
             return ingreso;
         }
+
+        public IEnumerable<Ingreso> GetIngresosByDateRange(DateTime start, DateTime end)
+        {
+            return context.Ingresos.Where(g => g.Fecha >= start && g.Fecha <= end);
+        }
+
+        //public IEnumerable<Ingreso> GetIngresosLastMonth()
+        //{
+        //    var today = DateTime.Today;
+        //    var begginingOfMonth = new DateTime(today.Year, today.Month, 1);
+
+        //    return context.Ingresos.Where(g => g.Fecha >= begginingOfMonth).ToList();
+        //}
     }
 }

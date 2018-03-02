@@ -50,5 +50,18 @@ namespace MyWalletApp.Data.Repositories
 
             return gasto;
         }
+
+        public IEnumerable<Gasto> GetGastosByDateRange(DateTime start, DateTime end)
+        {
+            return context.Gastos.Where(g => g.Fecha >= start && g.Fecha <= end);
+        }
+
+        //public IEnumerable<Gasto> GetGastosLastMonth()
+        //{
+        //    var today = DateTime.Today;
+        //    var begginingOfMonth = new DateTime(today.Year, today.Month, 1);
+
+        //    return context.Gastos.Where(g => g.Fecha >= begginingOfMonth).ToList();
+        //}
     }
 }

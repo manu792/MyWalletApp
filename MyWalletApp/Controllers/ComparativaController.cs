@@ -26,8 +26,8 @@ namespace MyWalletApp.Controllers
         // GET: Comparativa
         public ActionResult Index()
         {
-            var ingresos = ingresoManager.GetAllIngresos();
-            var gastos = gastoManager.GetAllGastos();
+            var ingresos = ingresoManager.GetIngresosByDateRange();
+            var gastos = gastoManager.GetGastosByDateRange();
 
 
             return View(new Comparativa()
@@ -42,14 +42,8 @@ namespace MyWalletApp.Controllers
         [HttpPost]
         public ActionResult Index(Comparativa comparativa)
         {
-            var ingresos = ingresoManager.GetAllIngresos();
-            var gastos = gastoManager.GetAllGastos();
-
-            if (comparativa.FechaDesde != null && comparativa.FechaHasta != null)
-            {
-                ingresos = ingresos.Where(i => i.Fecha >= comparativa.FechaDesde && i.Fecha <= comparativa.FechaHasta);
-                gastos = gastos.Where(g => g.Fecha >= comparativa.FechaDesde && g.Fecha <= comparativa.FechaHasta);
-            }
+            var ingresos = ingresoManager.GetIngresosByDateRange(comparativa.FechaDesde, comparativa.FechaHasta);
+            var gastos = gastoManager.GetGastosByDateRange(comparativa.FechaDesde, comparativa.FechaHasta);
 
             return View(new Comparativa()
             {
