@@ -1,0 +1,112 @@
+﻿@model MyWalletApp.Models.Comparativa
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ingresos</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+            <div class="search col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.DisplayNameFor(model => model.FechaDesde)
+                        @Html.TextBoxFor(model => model.FechaDesde, new { placeholder = "mm/dd/yyyy", @class = "form-control search normal-datepicker" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayNameFor(model => model.FechaHasta)
+                        @Html.TextBoxFor(model => model.FechaHasta, new { placeholder = "mm/dd/yyyy", @class = "form-control search normal-datepicker" })
+                    </div>
+                    <div class="col-md-3">
+                        <input type="submit" value="Buscar" class="btn btn-default" style="margin-top: 20px" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Ingresos</h2>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.Label("Monto")
+                        </th>
+                        <th>
+                            @Html.Label("Fuente")
+                        </th>
+                        <th>
+                            @Html.Label("Fecha")
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.Ingresos)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Monto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fuente.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fecha)
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <p>
+                    Total en Ingresos: @Model.Ingresos.Sum(item => item.Monto)
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h2>Gastos</h2>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.Label("Monto")
+                        </th>
+                        <th>
+                            @Html.Label("Servicio")
+                        </th>
+                        <th>
+                            @Html.Label("Fecha")
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.Gastos)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Monto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Servicio.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fecha)
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <p>
+                    Total en Gastos: @Model.Gastos.Sum(item => item.Monto)
+                </p>
+            </div>
+        </div>
+        <p>
+            Total en Billetera: @Model.Total
+        </p>
+    }
+</body>
+</html>

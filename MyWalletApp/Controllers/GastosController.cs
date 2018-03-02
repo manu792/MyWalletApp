@@ -28,14 +28,17 @@ namespace MyWalletApp.Controllers
             var gastos = manager.GetAllGastos();
             var proximosPagos = servicioManager.GetServiciosWithinNextFiveDays();
 
+            var lista = new List<SelectListItem>() { new SelectListItem() { Text = "Elija un servicio", Value = "-1" } };
+            lista.AddRange(serviciosDisponibles.Select(f => new SelectListItem()
+            {
+                Text = f.Nombre,
+                Value = f.Id.ToString()
+            }).ToList());
+
             var newGastos = new SearchViewModel<GastoDto>()
             {
                 Transacciones = gastos,
-                FuentesServiciosDisponibles = serviciosDisponibles.Select(s => new SelectListItem()
-                {
-                    Text = s.Nombre,
-                    Value = s.Id.ToString()
-                }).ToList(),
+                FuentesServiciosDisponibles = lista,
                 ProximosPagos = proximosPagos
             };
 
@@ -47,6 +50,7 @@ namespace MyWalletApp.Controllers
         public ActionResult Index(SearchViewModel<GastoDto> searchViewModel)
         {
             var gastos = manager.GetAllGastos();
+            var proximosPagos = servicioManager.GetServiciosWithinNextFiveDays();
             var lista = new List<SelectListItem>() { new SelectListItem() { Text = "Elija un servicio", Value = "-1" } };
 
             lista.AddRange(serviciosDisponibles.Select(f => new SelectListItem()
@@ -63,7 +67,8 @@ namespace MyWalletApp.Controllers
             return View(new SearchViewModel<GastoDto>()
             {
                 Transacciones = gastos,
-                FuentesServiciosDisponibles = lista
+                FuentesServiciosDisponibles = lista,
+                ProximosPagos = proximosPagos
             });
         }
 
