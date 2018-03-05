@@ -171,7 +171,6 @@
     <Compile Include="Models\GastoViewModel.cs" />
     <Compile Include="Models\IngresoViewModel.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
-    <Compile Include="Models\ServicioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
