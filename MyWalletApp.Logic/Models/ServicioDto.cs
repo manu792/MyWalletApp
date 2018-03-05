@@ -15,5 +15,7 @@ namespace MyWalletApp.Logic.Models
         public string Nombre { get; set; }
         [DisplayName("Fecha de pago")]
         public DateTime FechaPago { get; set; }
+        [DisplayName("Tipo de Pago")]
+        public bool EsPorMes { get; set; }
     }
 }

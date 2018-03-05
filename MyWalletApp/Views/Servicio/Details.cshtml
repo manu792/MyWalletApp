@@ -24,7 +24,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FechaPago.Day)<span> de cada mes</span>
+            @if (Model.EsPorMes)
+            {
+                @Html.DisplayFor(model => model.FechaPago.Day)<span> de cada mes</span>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.FechaPago.Day)<span>/</span>@Html.DisplayFor(model => model.FechaPago.Month)<span> de cada año</span>
+            }
         </dd>
 
     </dl>

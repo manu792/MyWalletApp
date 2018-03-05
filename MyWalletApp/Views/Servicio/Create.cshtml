@@ -3,6 +3,20 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var tiposPago = new List<SelectListItem>()
+            {
+                new SelectListItem()
+                {
+                    Text = "Mensualmente",
+                    Value = "True"
+                },
+                new SelectListItem()
+                {
+                    Text = "Anualmente",
+                    Value = "False"
+                }
+            };
 }
 
 <h2>Agregar Servicio</h2>
@@ -23,6 +37,13 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.EsPorMes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.EsPorMes, tiposPago, new { @class = "form-control" })
+            </div>
+        </div>
+        
         <div class="form-group">
             @Html.LabelFor(model => model.FechaPago, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

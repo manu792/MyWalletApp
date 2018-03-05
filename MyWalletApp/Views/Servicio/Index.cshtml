@@ -27,7 +27,14 @@
             @Html.DisplayFor(modelItem => item.Nombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FechaPago.Day)<span> de cada mes</span>
+            @if (item.EsPorMes)
+            {
+                @Html.DisplayFor(modelItem => item.FechaPago.Day)<span> de cada mes</span>
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.FechaPago.Day)<span>/</span>@Html.DisplayFor(modelItem => item.FechaPago.Month)<span> de cada año</span>
+            }
         </td>
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |

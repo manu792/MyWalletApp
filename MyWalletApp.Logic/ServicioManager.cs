@@ -26,7 +26,8 @@ namespace MyWalletApp.Logic
             {
                 Id = s.Id,
                 Nombre = s.Nombre,
-                FechaPago = s.FechaPago
+                FechaPago = s.FechaPago,
+                EsPorMes = s.EsPorMes
             }).ToList();
         }
 
@@ -35,7 +36,8 @@ namespace MyWalletApp.Logic
             repository.AddServicio(new Servicio()
             {
                 Nombre = servicio.Nombre,
-                FechaPago = (DateTime)servicio.FechaPago
+                FechaPago = (DateTime)servicio.FechaPago,
+                EsPorMes = servicio.EsPorMes
             });
 
             return servicio;
@@ -52,7 +54,8 @@ namespace MyWalletApp.Logic
             {
                 Id = servicio.Id,
                 Nombre = servicio.Nombre,
-                FechaPago = servicio.FechaPago
+                FechaPago = servicio.FechaPago,
+                EsPorMes = servicio.EsPorMes
             };
         }
 
@@ -62,7 +65,8 @@ namespace MyWalletApp.Logic
             {
                 Id = servicio.Id,
                 Nombre = servicio.Nombre,
-                FechaPago = (DateTime)servicio.FechaPago
+                FechaPago = (DateTime)servicio.FechaPago,
+                EsPorMes = servicio.EsPorMes
             });
 
             return servicio;
@@ -84,7 +88,8 @@ namespace MyWalletApp.Logic
             {
                 Id = s.Id,
                 Nombre = s.Nombre,
-                FechaPago = s.FechaPago
+                FechaPago = s.FechaPago,
+                EsPorMes = s.EsPorMes
             }).ToList();
         }
     }
