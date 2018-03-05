@@ -35,7 +35,7 @@ namespace MyWalletApp.Logic
             repository.AddServicio(new Servicio()
             {
                 Nombre = servicio.Nombre,
-                FechaPago = servicio.FechaPago
+                FechaPago = (DateTime)servicio.FechaPago
             });
 
             return servicio;
@@ -62,7 +62,7 @@ namespace MyWalletApp.Logic
             {
                 Id = servicio.Id,
                 Nombre = servicio.Nombre,
-                FechaPago = servicio.FechaPago
+                FechaPago = (DateTime)servicio.FechaPago
             });
 
             return servicio;
