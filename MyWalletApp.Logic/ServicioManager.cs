@@ -92,5 +92,18 @@ namespace MyWalletApp.Logic
                 EsPorMes = s.EsPorMes
             }).ToList();
         }
+
+        public IEnumerable<ServicioDto> GetMontlyServicios()
+        {
+            var servicios = repository.GetMontlyServicios();
+
+            return servicios.Select(s => new ServicioDto()
+            {
+                Id = s.Id,
+                Nombre = s.Nombre,
+                FechaPago = s.FechaPago,
+                EsPorMes = s.EsPorMes
+            }).ToList();
+        }
     }
 }

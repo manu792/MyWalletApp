@@ -77,5 +77,10 @@ namespace MyWalletApp.Data.Repositories
 
             return serviciosProximos;
         }
+
+        public IEnumerable<Servicio> GetMontlyServicios()
+        {
+            return context.Servicios.Where(s => s.EsPorMes);
+        }
     }
 }

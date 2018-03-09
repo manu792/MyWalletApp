@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MyWalletApp.Logic;
+using MyWalletApp.Logic.Models;
+using MyWalletApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,82 +11,56 @@ namespace MyWalletApp.Controllers
 {
     public class ProyeccionController : Controller
     {
+        private ServicioManager servicioManager;
+
+        public ProyeccionController()
+        {
+            servicioManager = new ServicioManager();
+        }
+
         // GET: Proyeccion
         public ActionResult Index()
         {
-            return View();
-        }
+            var servicios = servicioManager.GetMontlyServicios();
 
-        // GET: Proyeccion/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Proyeccion/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Proyeccion/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            var proyeccion = new ProyeccionServicioViewModel()
             {
-                // TODO: Add insert logic here
+                Proyecciones = servicios.Select(s => new ProyeccionDto()
+                {
+                    id = s.Id,
+                    y = s.Id,
+                    fechaPago = s.FechaPago.Day.ToString(),
+                    esPorMes = s.EsPorMes,
+                    label = $"{s.Id} colones",
+                    indexLabel = s.Nombre
+                }).ToList()
+            };
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(proyeccion);
         }
-
-        // GET: Proyeccion/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Proyeccion/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Proyeccion/Delete/5
+        
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
-        }
+            var servicios = servicioManager.GetMontlyServicios();
+            var lista = (List<ServicioDto>)servicios;
 
-        // POST: Proyeccion/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+            lista.Remove(servicios.FirstOrDefault(s => s.Id == id));
 
-                return RedirectToAction("Index");
-            }
-            catch
+            var proyeccion = new ProyeccionServicioViewModel()
             {
-                return View();
-            }
+                Proyecciones = lista.Select(s => new ProyeccionDto()
+                {
+                    id = s.Id,
+                    y = s.Id,
+                    fechaPago = s.FechaPago.Day.ToString(),
+                    esPorMes = s.EsPorMes,
+                    label = $"{s.Id} colones",
+                    indexLabel = s.Nombre
+                }).ToList()
+            };
+
+            return View("Index", proyeccion);
         }
     }
 }

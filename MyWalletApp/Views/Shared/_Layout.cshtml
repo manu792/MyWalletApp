@@ -75,7 +75,7 @@
         }
 
         var mybtn = document.getElementsByClassName("testbtn")[0];
-        mybtn.click();
+        //mybtn.click();
 
         // Accordions
         function myAccFunc(id) {
@@ -102,7 +102,7 @@
             for (i = 0; i < x.length; i++) {
                 x[i].style.display = "none";
             }
-            x[slideIndex - 1].style.display = "block";
+            //x[slideIndex - 1].style.display = "block";
         }
 
         showDivs(1);
@@ -123,5 +123,6 @@
             }
         }
     </script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

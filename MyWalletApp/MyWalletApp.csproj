@@ -170,6 +170,7 @@
     <Compile Include="Models\Comparativa.cs" />
     <Compile Include="Models\GastoViewModel.cs" />
     <Compile Include="Models\IngresoViewModel.cs" />
+    <Compile Include="Models\ProyeccionServicioViewModel.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -200,6 +201,7 @@
     <Content Include="Views\Fuente\Edit.cshtml" />
     <Content Include="Views\Fuente\Delete.cshtml" />
     <Content Include="Views\Comparativa\Index.cshtml" />
+    <Content Include="Views\Proyeccion\IndexOld.cshtml" />
     <Content Include="Views\Proyeccion\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
