@@ -12,6 +12,7 @@ namespace MyWalletApp.Controllers
     public class ProyeccionController : Controller
     {
         private ServicioManager servicioManager;
+        private static IEnumerable<ServicioDto> servicios;
 
         public ProyeccionController()
         {
@@ -21,7 +22,7 @@ namespace MyWalletApp.Controllers
         // GET: Proyeccion
         public ActionResult Index()
         {
-            var servicios = servicioManager.GetMontlyServicios();
+            servicios = servicioManager.GetMontlyServicios();
 
             var proyeccion = new ProyeccionServicioViewModel()
             {
@@ -39,17 +40,20 @@ namespace MyWalletApp.Controllers
             return View(proyeccion);
         }
         
-        [HttpGet]
+        [HttpPost]
         public ActionResult Delete(int id)
         {
-            var servicios = servicioManager.GetMontlyServicios();
-            var lista = (List<ServicioDto>)servicios;
-
-            lista.Remove(servicios.FirstOrDefault(s => s.Id == id));
+            if(servicios.Any(s => s.Id == id))
+                ((List<ServicioDto>)servicios).Remove(servicios.FirstOrDefault(s => s.Id == id));
+            else
+            {
+                var servicio = servicioManager.SearchById(id);
+                ((List<ServicioDto>)servicios).Add(servicio);
+            }
 
             var proyeccion = new ProyeccionServicioViewModel()
             {
-                Proyecciones = lista.Select(s => new ProyeccionDto()
+                Proyecciones = servicios.Select(s => new ProyeccionDto()
                 {
                     id = s.Id,
                     y = s.Id,
@@ -60,7 +64,10 @@ namespace MyWalletApp.Controllers
                 }).ToList()
             };
 
-            return View("Index", proyeccion);
+            var json = new JsonResult();
+            json.Data = proyeccion;
+
+            return json;
         }
     }
 }

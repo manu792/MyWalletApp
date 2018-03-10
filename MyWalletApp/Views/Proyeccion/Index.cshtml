@@ -6,7 +6,16 @@
 
 <h2 id="btn">Proyecciones</h2>
 
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<div class="row">
+    <div class="col-md-6">
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <label>Total necesario para cubrir gastos del proximo mes: <span id="totalGastos">@Model.Proyecciones.Sum(p => p.y)</span> colones</label>
+    </div>
+    <div class="col-md-6">
+        <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+        <label>Total Ahorro: <span id="totalAhorros">0</span> colones</label>
+    </div>
+</div>
 
 @using (Html.BeginForm())
 {
@@ -34,10 +43,18 @@
                     @Html.DisplayFor(modelItem => item.y)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.fechaPago)
+                    @if (item.esPorMes)
+                    {
+                        @Html.DisplayFor(modelItem => item.fechaPago)<span> de cada mes</span>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.fechaPago)<span> de cada año</span>
+                    }
                 </td>
                 <td>
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
+                    <button onclick="submitBtn(@Json.Encode(item))" type="button" class="btn btn-link">Eliminar</button>
+                    @*@Html.ActionLink("Eliminar", "Delete", new { id = item.id })*@
                 </td>
             </tr>
         }
@@ -48,8 +65,9 @@
 @section scripts{
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
     <script>
-            var options = {
+        var options = {
                 animationEnabled: true,
                 title: {
                     text: "Pagos del Proximo Mes",
@@ -77,20 +95,42 @@
                     color: "#62C9C3",
                     type: "bar",
                     dataPoints: @Html.Raw(Json.Encode(Model.Proyecciones))
-                    //dataPoints: [
-                    //    { y: 21, label: "21%", indexLabel: "Video" },
-                    //    { y: 25, label: "25%", indexLabel: "Dining" },
-                    //    { y: 33, label: "33%", indexLabel: "Entertainment" },
-                    //    { y: 36, label: "36%", indexLabel: "News" },
-                    //    { y: 42, label: "42%", indexLabel: "Music" },
-                    //    { y: 49, label: "49%", indexLabel: "Social Networking" },
-                    //    { y: 50, label: "50%", indexLabel: "Maps/ Search" },
-                    //    { y: 55, label: "55%", indexLabel: "Weather" },
-                    //    { y: 61, label: "61%", indexLabel: "Games" }
-                    //]
                 }]
             };
-            $("#chartContainer").CanvasJSChart(options);
+        $("#chartContainer").CanvasJSChart(options);
+
+
+        var options2 = {
+                animationEnabled: true,
+                title: {
+                    text: "Ahorro por servicio",
+                    fontColor: "Peru"
+                },
+                axisY: {
+                    tickThickness: 0,
+                    lineThickness: 0,
+                    valueFormatString: " ",
+                    gridThickness: 0
+                },
+                axisX: {
+                    tickThickness: 0,
+                    lineThickness: 0,
+                    labelFontSize: 18,
+                    labelFontColor: "Peru"
+                },
+                data: [{
+                    indexLabelFontSize: 26,
+                    toolTipContent: "<span style=\"color:#62C9C3\">{indexLabel}:</span> <span style=\"color:#CD853F\"><strong>{y} colones. Fecha de pago: {FechaPago}</strong></span>",
+                    indexLabelPlacement: "inside",
+                    indexLabelFontColor: "white",
+                    indexLabelFontWeight: 600,
+                    indexLabelFontFamily: "Verdana",
+                    color: "#62C9C3",
+                    type: "bar",
+                    dataPoints: []
+                }]
+            };
+            $("#chartContainer2").CanvasJSChart(options2);
     </script>
 }
 
