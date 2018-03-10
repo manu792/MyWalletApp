@@ -11,9 +11,9 @@ namespace MyWalletApp.Models
     public class Searchable
     {
         [DisplayName("Desde")]
-        public DateTime? FechaDesde { get; set; }
+        public string FechaDesde { get; set; }
         [DisplayName("Hasta")]
-        public DateTime? FechaHasta { get; set; }
+        public string FechaHasta { get; set; }
     }
 
     public class SearchViewModel<T> : Searchable where T : ITransaction

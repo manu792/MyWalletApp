@@ -20,7 +20,7 @@ namespace MyWalletApp.Controllers
         // GET: Fuente
         public ActionResult Index()
         {
-            var fuentes = fuenteManager.GetAllFuentes();
+            var fuentes = fuenteManager.GetAllFuentes().Where(f => !f.Nombre.ToLower().Equals("otro"));
             return View(fuentes);
         }
 

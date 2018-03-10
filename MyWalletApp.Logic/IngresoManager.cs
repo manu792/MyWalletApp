@@ -3,6 +3,7 @@ using MyWalletApp.Data.Repositories;
 using MyWalletApp.Logic.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace MyWalletApp.Logic
                     Id = i.Fuente.Id,
                     Nombre = i.Fuente.Nombre
                 },
-                Fecha = i.Fecha
+                Fecha = i.Fecha.ToString("dd/MM/yyyy")
             }).ToList();
         }
 
@@ -55,7 +56,7 @@ namespace MyWalletApp.Logic
                     Id = i.Fuente.Id,
                     Nombre = i.Fuente.Nombre
                 },
-                Fecha = i.Fecha
+                Fecha = i.Fecha.ToString("dd/MM/yyyy")
             }).ToList();
         }
 
@@ -66,7 +67,7 @@ namespace MyWalletApp.Logic
                 Monto = ingreso.Monto,
                 Descripcion = ingreso.Descripcion,
                 FuenteId = ingreso.Fuente.Id,
-                Fecha = Convert.ToDateTime(ingreso.Fecha)
+                Fecha = DateTime.ParseExact(ingreso.Fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture)
             });
 
             return ingreso;
@@ -89,7 +90,7 @@ namespace MyWalletApp.Logic
                     Id = ingreso.Fuente.Id,
                     Nombre = ingreso.Fuente.Nombre
                 },
-                Fecha = ingreso.Fecha
+                Fecha = ingreso.Fecha.ToString("dd/MM/yyyy")
             };
         }
 
@@ -98,7 +99,7 @@ namespace MyWalletApp.Logic
             repository.UpdateIngreso(new Ingreso()
             {
                 Id = ingreso.Id,
-                Fecha = Convert.ToDateTime(ingreso.Fecha),
+                Fecha = DateTime.ParseExact(ingreso.Fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture),
                 FuenteId = ingreso.Fuente.Id,
                 Monto = ingreso.Monto,
                 Descripcion = ingreso.Descripcion

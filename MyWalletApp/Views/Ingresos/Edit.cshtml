@@ -42,7 +42,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Ingreso.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Ingreso.Fecha, @"{0:MM/dd/yyyy}", new { placeholder = "mm/dd/yyyy", @class = "form-control normal-datepicker" })
+            @Html.TextBoxFor(model => model.Ingreso.Fecha, @"{0:dd/MM/yyyy}", new { placeholder = "dd/mm/yyyy", @class = "form-control normal-datepicker" })
             @Html.ValidationMessageFor(model => model.Ingreso.Fecha, "", new { @class = "text-danger" })
         </div>
     </div>

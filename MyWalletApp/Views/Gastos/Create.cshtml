@@ -18,7 +18,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Gasto.Monto, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Gasto.Monto, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Gasto.Monto, new { htmlAttributes = new { @class = "form-control", @id="monto" } })
             @Html.ValidationMessageFor(model => model.Gasto.Monto, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -26,7 +26,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ServiciosDisponibles, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.Gasto.Servicio.Id, Model.ServiciosDisponibles, new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.Gasto.Servicio.Id, Model.ServiciosDisponibles, new { @class = "form-control", @id = "servicios" })
             @Html.ValidationMessageFor(model => model.ServiciosDisponibles, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -41,7 +41,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Gasto.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Gasto.Fecha, new { placeholder = "mm/dd/yyyy", @class = "form-control normal-datepicker" })
+            @Html.TextBoxFor(model => model.Gasto.Fecha, new { placeholder = "dd/mm/yyyy", @class = "form-control normal-datepicker" })
             @Html.ValidationMessageFor(model => model.Gasto.Fecha, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -57,3 +57,29 @@
 <div>
     @Html.ActionLink("Volver a gastos", "Index")
 </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#servicios').change(function () {
+                var servicioId = $('#servicios').val();
+                $.ajax({
+                    url: '/gastos/searchbyid/' + servicioId,
+                    type: 'GET',
+                    success: function (result) {
+                        if (result.Nombre === "Otro") {
+                            $('#monto').prop('readonly', false);
+                            $('#monto').val('');
+                        } else {
+                            $('#monto').prop('readonly', true);
+                            $('#monto').val(result.Monto);
+                        }
+                    }, error: function () {
+                        alert('Hubo un problema al tratar de obtener los datos del servicio.');
+                    }
+                });
+            });
+            $('#servicios').change();
+        });
+    </script>    
+}

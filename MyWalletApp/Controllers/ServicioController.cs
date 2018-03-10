@@ -2,6 +2,7 @@
 using MyWalletApp.Logic.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,7 +21,7 @@ namespace MyWalletApp.Controllers
         // GET: Servicio
         public ActionResult Index()
         {
-            var servicios = servicioManager.GetAllServicios();
+            var servicios = servicioManager.GetAllServicios().Where(s => !s.Nombre.ToLower().Equals("otro"));
             return View(servicios);
         }
 
@@ -28,6 +29,10 @@ namespace MyWalletApp.Controllers
         public ActionResult Details(int id)
         {
             var servicio = servicioManager.SearchById(id);
+            var date = DateTime.ParseExact(servicio.FechaPago, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            servicio.FechaPago = servicio.EsPorMes ? $"{date.Day.ToString()}"
+                : $"{date.ToString("dd/MM")}";
 
             if (servicio == null)
                 return HttpNotFound();

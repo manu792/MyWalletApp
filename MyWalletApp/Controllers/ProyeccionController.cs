@@ -3,6 +3,7 @@ using MyWalletApp.Logic.Models;
 using MyWalletApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,22 +23,9 @@ namespace MyWalletApp.Controllers
         // GET: Proyeccion
         public ActionResult Index()
         {
-            servicios = servicioManager.GetMontlyServicios();
-
-            var proyeccion = new ProyeccionServicioViewModel()
-            {
-                Proyecciones = servicios.Select(s => new ProyeccionDto()
-                {
-                    id = s.Id,
-                    y = s.Monto,
-                    fechaPago = s.FechaPago.Day.ToString(),
-                    esPorMes = s.EsPorMes,
-                    label = $"{s.Monto} colones",
-                    indexLabel = s.Nombre
-                }).ToList()
-            };
-
-            return View(proyeccion);
+            servicios = servicioManager.GetNextMonthServiciosToPay();
+            
+            return View(GetProyeccion(servicios));
         }
         
         [HttpPost]
@@ -51,23 +39,29 @@ namespace MyWalletApp.Controllers
                 ((List<ServicioDto>)servicios).Add(servicio);
             }
 
+            
+            var json = new JsonResult();
+            json.Data = GetProyeccion(servicios);
+
+            return json;
+        }
+
+        private ProyeccionServicioViewModel GetProyeccion(IEnumerable<ServicioDto> servicios)
+        {
             var proyeccion = new ProyeccionServicioViewModel()
             {
                 Proyecciones = servicios.Select(s => new ProyeccionDto()
                 {
                     id = s.Id,
                     y = s.Monto,
-                    fechaPago = s.FechaPago.Day.ToString(),
+                    fechaPago = s.EsPorMes ? $"{s.FechaPago} de cada mes" : $"{s.FechaPago} de cada año",
                     esPorMes = s.EsPorMes,
                     label = $"{s.Monto} colones",
                     indexLabel = s.Nombre
                 }).ToList()
             };
 
-            var json = new JsonResult();
-            json.Data = proyeccion;
-
-            return json;
+            return proyeccion;
         }
     }
 }

@@ -102,6 +102,12 @@ namespace MyWalletApp.Data
                             Monto = 250000,
                             FechaPago = Convert.ToDateTime("2018-02-15"),
                             EsPorMes = false
+                        },
+                        new Servicio
+                        {
+                            Id = 8,
+                            Nombre = "Otro",
+                            Monto = 0
                         }
                     });
             dbContext.SaveChanges();

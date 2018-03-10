@@ -57,30 +57,36 @@ namespace MyWalletApp.Data.Repositories
             var until = DateTime.Now.AddDays(5);
             List<Servicio> serviciosProximos = new List<Servicio>();
 
-            serviciosProximos.AddRange(context.Servicios.Where(s => !s.EsPorMes &&
+            serviciosProximos.AddRange(context.Servicios.Where(s => s.EsPorMes == false &&
                 s.FechaPago >= today && s.FechaPago <= until).ToList());
             
 
             if (today.Month == until.Month)
             {
                 serviciosProximos.AddRange(context.Servicios
-                .Where(g => g.EsPorMes && g.FechaPago.Day >= today.Day && g.FechaPago.Day <= until.Day)
+                .Where(g => g.EsPorMes == true && g.FechaPago.Value.Day >= today.Day && g.FechaPago.Value.Day <= until.Day)
                 .ToList());
             }
             else
             {
                 serviciosProximos.AddRange(context.Servicios
-                .Where(g => g.EsPorMes && g.FechaPago.Day >= DateTime.Now.Day && g.FechaPago.Day <= 31 ||
-                       g.EsPorMes && g.FechaPago.Day >= 1 && g.FechaPago.Day <= until.Day)
+                .Where(g => g.EsPorMes == true && g.FechaPago.Value.Day >= DateTime.Now.Day && g.FechaPago.Value.Day <= 31 ||
+                       g.EsPorMes == true && g.FechaPago.Value.Day >= 1 && g.FechaPago.Value.Day <= until.Day)
                 .ToList());
             }
 
             return serviciosProximos;
         }
 
-        public IEnumerable<Servicio> GetMontlyServicios()
+        public IEnumerable<Servicio> GetNextMonthServiciosToPay()
         {
-            return context.Servicios.Where(s => s.EsPorMes);
+            var nextMonthDate = DateTime.Now.AddMonths(1);
+
+            var serviciosAPagarProximoMes = context.Servicios.Where(s => s.EsPorMes == true).ToList();
+            serviciosAPagarProximoMes.AddRange(context.Servicios.Where(s => s.EsPorMes == false &&
+                s.FechaPago.Value.Month == nextMonthDate.Month).ToList());
+
+            return serviciosAPagarProximoMes;
         }
     }
 }

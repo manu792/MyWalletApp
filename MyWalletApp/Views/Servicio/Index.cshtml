@@ -35,11 +35,11 @@
         <td>
             @if (item.EsPorMes)
             {
-                @Html.DisplayFor(modelItem => item.FechaPago.Day)<span> de cada mes</span>
+                @Html.DisplayFor(modelItem => item.FechaPago)<span> de cada mes</span>
             }
             else
             {
-                @Html.DisplayFor(modelItem => item.FechaPago.Day)<span>/</span>@Html.DisplayFor(modelItem => item.FechaPago.Month)<span> de cada año</span>
+                @Html.DisplayFor(modelItem => item.FechaPago)<span> de cada año</span>
             }
         </td>
         <td>

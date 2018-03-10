@@ -21,11 +21,11 @@
             <div class="row">
                 <div class="col-md-4">
                     @Html.DisplayNameFor(model => model.FechaDesde)
-                    @Html.TextBoxFor(model => model.FechaDesde, new { placeholder = "mm/dd/yyyy", @class = "form-control search normal-datepicker" })
+                    @Html.TextBoxFor(model => model.FechaDesde, @"{0:dd/MM/yyyy}", new { placeholder = "dd/mm/yyyy", @class = "form-control search normal-datepicker" })
                 </div>
                 <div class="col-md-4">
                     @Html.DisplayNameFor(model => model.FechaHasta)
-                    @Html.TextBoxFor(model => model.FechaHasta, new { placeholder = "mm/dd/yyyy", @class = "form-control search normal-datepicker" })
+                    @Html.TextBoxFor(model => model.FechaHasta, @"{0:dd/MM/yyyy}", new { placeholder = "mm/dd/yyyy", @class = "form-control search normal-datepicker" })
                 </div>
                 <div class="col-md-4">
                     @Html.DisplayNameFor(model => model.FuentesServiciosDisponibles)

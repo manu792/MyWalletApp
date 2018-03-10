@@ -9,6 +9,6 @@ namespace MyWalletApp.Logic.Models
     public interface ITransaction
     {
         double Monto { get; set; }
-        DateTime? Fecha { get; set; }
+        string Fecha { get; set; }
     }
 }

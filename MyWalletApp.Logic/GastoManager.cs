@@ -3,6 +3,7 @@ using MyWalletApp.Data.Repositories;
 using MyWalletApp.Logic.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace MyWalletApp.Logic
                     Id = i.Servicio.Id,
                     Nombre = i.Servicio.Nombre
                 },
-                Fecha = i.Fecha
+                Fecha = i.Fecha.ToString("dd/MM/yyyy")
             }).ToList();
         }
 
@@ -55,7 +56,7 @@ namespace MyWalletApp.Logic
                     Id = i.Servicio.Id,
                     Nombre = i.Servicio.Nombre
                 },
-                Fecha = i.Fecha
+                Fecha = i.Fecha.ToString("dd/MM/yyyy")
             }).ToList();
         }
 
@@ -76,7 +77,7 @@ namespace MyWalletApp.Logic
                     Id = gasto.Servicio.Id,
                     Nombre = gasto.Servicio.Nombre
                 },
-                Fecha = gasto.Fecha
+                Fecha = gasto.Fecha.ToString("dd/MM/yyyy")
             };
         }
 
@@ -86,8 +87,8 @@ namespace MyWalletApp.Logic
             {
                 Monto = gasto.Monto,
                 Descripcion = gasto.Descripcion,
-                ServicioId = 1,
-                Fecha = Convert.ToDateTime(gasto.Fecha)
+                ServicioId = gasto.Servicio.Id,
+                Fecha = DateTime.ParseExact(gasto.Fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture)
             });
 
             return gasto;
@@ -100,8 +101,8 @@ namespace MyWalletApp.Logic
                 Id = gasto.Id,
                 Monto = gasto.Monto,
                 Descripcion = gasto.Descripcion,
-                ServicioId = 1,
-                Fecha = Convert.ToDateTime(gasto.Fecha)
+                ServicioId = gasto.Servicio.Id,
+                Fecha = DateTime.ParseExact(gasto.Fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture)
             });
 
             return gasto;

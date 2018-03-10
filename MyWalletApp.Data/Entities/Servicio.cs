@@ -13,9 +13,9 @@ namespace MyWalletApp.Data.Entities
         public int Id { get; set; }
         [DisplayName("Nombre Servicio")]
         public string Nombre { get; set; }
-        public DateTime FechaPago { get; set; }
-        [Required]
+        public DateTime? FechaPago { get; set; }
+        [Required(ErrorMessage = "El campo Monto es requerido")]
         public double Monto { get; set; }
-        public bool EsPorMes { get; set; }
+        public bool? EsPorMes { get; set; }
     }
 }

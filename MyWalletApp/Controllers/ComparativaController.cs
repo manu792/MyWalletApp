@@ -2,6 +2,7 @@
 using MyWalletApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -42,8 +43,13 @@ namespace MyWalletApp.Controllers
         [HttpPost]
         public ActionResult Index(Comparativa comparativa)
         {
-            var ingresos = ingresoManager.GetIngresosByDateRange(comparativa.FechaDesde, comparativa.FechaHasta);
-            var gastos = gastoManager.GetGastosByDateRange(comparativa.FechaDesde, comparativa.FechaHasta);
+            if (string.IsNullOrEmpty(comparativa.FechaDesde))
+                comparativa.FechaDesde = "01/01/1970";
+            if (string.IsNullOrEmpty(comparativa.FechaHasta))
+                comparativa.FechaHasta = DateTime.Now.ToString("dd/MM/yyyy");
+
+            var ingresos = ingresoManager.GetIngresosByDateRange(DateTime.ParseExact(comparativa.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(comparativa.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture));
+            var gastos = gastoManager.GetGastosByDateRange(DateTime.ParseExact(comparativa.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(comparativa.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture));
 
             return View(new Comparativa()
             {

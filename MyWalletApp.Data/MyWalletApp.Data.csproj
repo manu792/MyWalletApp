@@ -67,6 +67,14 @@
     <Compile Include="Migrations\201803100333366_NewColumns.Designer.cs">
       <DependentUpon>201803100333366_NewColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803101448558_ChangeDateColumn.cs" />
+    <Compile Include="Migrations\201803101448558_ChangeDateColumn.Designer.cs">
+      <DependentUpon>201803101448558_ChangeDateColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803101456224_ChangeEsPorMes.cs" />
+    <Compile Include="Migrations\201803101456224_ChangeEsPorMes.Designer.cs">
+      <DependentUpon>201803101456224_ChangeEsPorMes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyWalletContext.cs" />
     <Compile Include="Entities\Servicio.cs" />
@@ -93,6 +101,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803100333366_NewColumns.resx">
       <DependentUpon>201803100333366_NewColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803101448558_ChangeDateColumn.resx">
+      <DependentUpon>201803101448558_ChangeDateColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803101456224_ChangeEsPorMes.resx">
+      <DependentUpon>201803101456224_ChangeEsPorMes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

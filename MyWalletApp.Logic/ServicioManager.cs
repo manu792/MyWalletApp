@@ -3,6 +3,7 @@ using MyWalletApp.Data.Repositories;
 using MyWalletApp.Logic.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,8 +28,8 @@ namespace MyWalletApp.Logic
                 Id = s.Id,
                 Nombre = s.Nombre,
                 Monto = s.Monto,
-                FechaPago = s.FechaPago,
-                EsPorMes = s.EsPorMes
+                FechaPago = s.FechaPago != null ? s.EsPorMes == true ? s.FechaPago.Value.ToString("dd") : s.FechaPago.Value.ToString("dd/MM") : string.Empty,
+                EsPorMes = Convert.ToBoolean(s.EsPorMes)
             }).ToList();
         }
 
@@ -38,7 +39,7 @@ namespace MyWalletApp.Logic
             {
                 Nombre = servicio.Nombre,
                 Monto = servicio.Monto,
-                FechaPago = (DateTime)servicio.FechaPago,
+                FechaPago = DateTime.ParseExact(servicio.FechaPago, "dd/MM/yyyy", CultureInfo.InvariantCulture),
                 EsPorMes = servicio.EsPorMes
             });
 
@@ -57,8 +58,8 @@ namespace MyWalletApp.Logic
                 Id = servicio.Id,
                 Nombre = servicio.Nombre,
                 Monto = servicio.Monto,
-                FechaPago = servicio.FechaPago,
-                EsPorMes = servicio.EsPorMes
+                FechaPago = servicio.FechaPago.Value.ToString("dd/MM/yyyy"),
+                EsPorMes = Convert.ToBoolean(servicio.EsPorMes)
             };
         }
 
@@ -69,7 +70,7 @@ namespace MyWalletApp.Logic
                 Id = servicio.Id,
                 Nombre = servicio.Nombre,
                 Monto = servicio.Monto,
-                FechaPago = (DateTime)servicio.FechaPago,
+                FechaPago = DateTime.ParseExact(servicio.FechaPago, "dd/MM/yyyy", CultureInfo.InvariantCulture),
                 EsPorMes = servicio.EsPorMes
             });
 
@@ -93,22 +94,22 @@ namespace MyWalletApp.Logic
                 Id = s.Id,
                 Nombre = s.Nombre,
                 Monto = s.Monto,
-                FechaPago = s.FechaPago,
-                EsPorMes = s.EsPorMes
+                FechaPago = s.FechaPago != null ? s.EsPorMes == true ? s.FechaPago.Value.ToString("dd") : s.FechaPago.Value.ToString("dd/MM") : string.Empty,
+                EsPorMes = Convert.ToBoolean(s.EsPorMes)
             }).ToList();
         }
 
-        public IEnumerable<ServicioDto> GetMontlyServicios()
+        public IEnumerable<ServicioDto> GetNextMonthServiciosToPay()
         {
-            var servicios = repository.GetMontlyServicios();
+            var servicios = repository.GetNextMonthServiciosToPay();
 
             return servicios.Select(s => new ServicioDto()
             {
                 Id = s.Id,
                 Nombre = s.Nombre,
                 Monto = s.Monto,
-                FechaPago = s.FechaPago,
-                EsPorMes = s.EsPorMes
+                FechaPago = s.FechaPago != null ? s.EsPorMes == true ? s.FechaPago.Value.ToString("dd") : s.FechaPago.Value.ToString("dd/MM") : string.Empty,
+                EsPorMes = Convert.ToBoolean(s.EsPorMes)
             }).ToList();
         }
     }

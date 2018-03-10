@@ -3,6 +3,7 @@ using MyWalletApp.Logic.Models;
 using MyWalletApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -54,8 +55,13 @@ namespace MyWalletApp.Controllers
                 Value = f.Id.ToString()
             }).ToList());
 
-            if (model.FechaDesde != null && model.FechaHasta != null)
-                ingresos = ingresos.Where(i => i.Fecha >= model.FechaDesde && i.Fecha <= model.FechaHasta);
+            if (string.IsNullOrEmpty(model.FechaDesde))
+                model.FechaDesde = "01/01/1970";
+            if (string.IsNullOrEmpty(model.FechaHasta))
+                model.FechaHasta = DateTime.Now.ToString("dd/MM/yyyy");
+
+            ingresos = ingresos.Where(i => DateTime.ParseExact(i.Fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture) >= DateTime.ParseExact(model.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture) && DateTime.ParseExact(i.Fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture) <= DateTime.ParseExact(model.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture));
+
             if (model.FuenteId != -1)
                 ingresos = ingresos.Where(i => i.Fuente.Id == model.FuenteId);
 
@@ -97,7 +103,8 @@ namespace MyWalletApp.Controllers
             var list = fuentesDisponibles.Select(f => new SelectListItem()
             {
                 Text = f.Nombre,
-                Value = f.Id.ToString()
+                Value = f.Id.ToString(),
+                Selected = f.Id == 1 ? true : false
             }).ToList();
             
             return View(new IngresoViewModel() { FuentesDisponibles = list });
@@ -107,8 +114,23 @@ namespace MyWalletApp.Controllers
         [HttpPost]
         public ActionResult Create(IngresoViewModel ingresoViewModel)
         {
-            if (!ModelState.IsValid)
-                return View();
+            ModelState.Clear();
+            var fuente = fuenteManager.SearchById(ingresoViewModel.Ingreso.Fuente.Id);
+
+            ingresoViewModel.Ingreso.Fuente.Nombre = fuente.Nombre;
+
+            if (!TryValidateModel(ingresoViewModel))
+            {
+                var list = fuentesDisponibles.Select(f => new SelectListItem()
+                {
+                    Text = f.Nombre,
+                    Value = f.Id.ToString(),
+                    Selected = f.Id == 1 ? true : false
+                }).ToList();
+
+                ingresoViewModel.FuentesDisponibles = list;
+                return View(ingresoViewModel);
+            }
             
             try
             {
@@ -120,7 +142,7 @@ namespace MyWalletApp.Controllers
                     {
                         Id = ingresoViewModel.Ingreso.Fuente.Id
                     },
-                    Fecha = Convert.ToDateTime(ingresoViewModel.Ingreso.Fecha)
+                    Fecha = ingresoViewModel.Ingreso.Fecha
                 });
 
                 return RedirectToAction("Index");
@@ -138,7 +160,8 @@ namespace MyWalletApp.Controllers
             var list = fuentesDisponibles.Select(f => new SelectListItem()
             {
                 Text = f.Nombre,
-                Value = f.Id.ToString()
+                Value = f.Id.ToString(),
+                Selected = f.Id == 1 ? true : false
             }).ToList();
 
             var ingreso = manager.SearchById(id);
@@ -164,8 +187,23 @@ namespace MyWalletApp.Controllers
         [HttpPost]
         public ActionResult Edit(int id, IngresoViewModel ingresoViewModel)
         {
-            if (!ModelState.IsValid)
-                return View();
+            ModelState.Clear();
+            var fuente = fuenteManager.SearchById(ingresoViewModel.Ingreso.Fuente.Id);
+
+            ingresoViewModel.Ingreso.Fuente.Nombre = fuente.Nombre;
+
+            if (!TryValidateModel(ingresoViewModel))
+            {
+                var list = fuentesDisponibles.Select(f => new SelectListItem()
+                {
+                    Text = f.Nombre,
+                    Value = f.Id.ToString(),
+                    Selected = f.Id == 1 ? true : false
+                }).ToList();
+
+                ingresoViewModel.FuentesDisponibles = list;
+                return View(ingresoViewModel);
+            }
 
             try
             {
@@ -178,7 +216,7 @@ namespace MyWalletApp.Controllers
                     {
                         Id = ingresoViewModel.Ingreso.Fuente.Id
                     },
-                    Fecha = Convert.ToDateTime(ingresoViewModel.Ingreso.Fecha)
+                    Fecha = ingresoViewModel.Ingreso.Fecha
                 });
 
                 return RedirectToAction("Index");
@@ -219,9 +257,6 @@ namespace MyWalletApp.Controllers
         [HttpPost]
         public ActionResult Delete(int id, IngresoViewModel ingresoViewModel)
         {
-            if (!ModelState.IsValid)
-                return View();
-
             try
             {
                 var ingreso = manager.SearchById(id);

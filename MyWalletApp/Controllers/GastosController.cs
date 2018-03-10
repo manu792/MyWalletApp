@@ -3,6 +3,7 @@ using MyWalletApp.Logic.Models;
 using MyWalletApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -59,8 +60,13 @@ namespace MyWalletApp.Controllers
                 Value = f.Id.ToString()
             }).ToList());
 
-            if (searchViewModel.FechaDesde != null && searchViewModel.FechaHasta != null)
-                gastos = gastos.Where(i => i.Fecha >= searchViewModel.FechaDesde && i.Fecha <= searchViewModel.FechaHasta);
+            if (string.IsNullOrEmpty(searchViewModel.FechaDesde))
+                searchViewModel.FechaDesde = "01/01/1970";
+            if (string.IsNullOrEmpty(searchViewModel.FechaHasta))
+                searchViewModel.FechaHasta = DateTime.Now.ToString("dd/MM/yyyy");
+            
+            gastos = gastos.Where(i => DateTime.ParseExact(i.Fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture) >= DateTime.ParseExact(searchViewModel.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture) && DateTime.ParseExact(i.Fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture) <= DateTime.ParseExact(searchViewModel.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture));
+
             if (searchViewModel.FuenteId != -1)
                 gastos = gastos.Where(i => i.Servicio.Id == searchViewModel.FuenteId);
 
@@ -98,14 +104,32 @@ namespace MyWalletApp.Controllers
             return HttpNotFound("El gasto no fue encontrado");
         }
 
+        [HttpGet]
+        public ActionResult SearchById(int id)
+        {
+            var gasto = serviciosDisponibles.FirstOrDefault(s => s.Id == id);
+
+            if (gasto != null)
+            {
+                var json = new JsonResult();
+                json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+                json.Data = gasto;
+
+                return json;
+            }
+
+            return HttpNotFound("El gasto no fue encontrado");
+        }
+
         // GET: Gastos/Create
         public ActionResult Create()
         {
             var servicios = serviciosDisponibles.Select(s => new SelectListItem()
             {
                 Text = s.Nombre,
-                Value = s.Id.ToString()
-                
+                Value = s.Id.ToString(),
+                Selected = s.Id == 1 ? true : false
+
             }).ToList();
 
             return View(new GastoViewModel()
@@ -125,7 +149,7 @@ namespace MyWalletApp.Controllers
                     Id = gastoViewModel.Gasto.Id,
                     Monto = (double)gastoViewModel.Gasto.Monto,
                     Descripcion = gastoViewModel.Gasto.Descripcion,
-                    Fecha = Convert.ToDateTime(gastoViewModel.Gasto.Fecha),
+                    Fecha = gastoViewModel.Gasto.Fecha,
                     Servicio = new ServicioDto()
                     {
                         Id = gastoViewModel.Gasto.Servicio.Id,
@@ -151,7 +175,8 @@ namespace MyWalletApp.Controllers
             var servicios = serviciosDisponibles.Select(s => new SelectListItem()
             {
                 Text = s.Nombre,
-                Value = s.Id.ToString()
+                Value = s.Id.ToString(),
+                Selected = s.Id == 1 ? true : false
 
             }).ToList();
 
@@ -188,7 +213,7 @@ namespace MyWalletApp.Controllers
                     Id = gastoViewModel.Gasto.Id,
                     Monto = (double)gastoViewModel.Gasto.Monto,
                     Descripcion = gastoViewModel.Gasto.Descripcion,
-                    Fecha = Convert.ToDateTime(gastoViewModel.Gasto.Fecha),
+                    Fecha = gastoViewModel.Gasto.Fecha,
                     Servicio = new ServicioDto()
                     {
                         Id = gastoViewModel.Gasto.Servicio.Id

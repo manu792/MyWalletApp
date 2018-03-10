@@ -17,6 +17,8 @@ namespace MyWalletApp.Data.Entities
         public double Monto { get; set; }
         public string Descripcion { get; set; }
         public int FuenteId { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
 
         // Navigation property
