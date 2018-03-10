@@ -84,6 +84,7 @@ namespace MyWalletApp.Controllers
                     {
                         Id = gasto.Id,
                         Monto = gasto.Monto,
+                        Descripcion = gasto.Descripcion,
                         Fecha = gasto.Fecha,
                         Servicio = new ServicioDto()
                         {
@@ -123,6 +124,7 @@ namespace MyWalletApp.Controllers
                 {
                     Id = gastoViewModel.Gasto.Id,
                     Monto = (double)gastoViewModel.Gasto.Monto,
+                    Descripcion = gastoViewModel.Gasto.Descripcion,
                     Fecha = Convert.ToDateTime(gastoViewModel.Gasto.Fecha),
                     Servicio = new ServicioDto()
                     {
@@ -160,6 +162,7 @@ namespace MyWalletApp.Controllers
                     {
                         Id = gasto.Id,
                         Monto = gasto.Monto,
+                        Descripcion = gasto.Descripcion,
                         Fecha = gasto.Fecha,
                         Servicio = new ServicioDto()
                         {
@@ -184,6 +187,7 @@ namespace MyWalletApp.Controllers
                 {
                     Id = gastoViewModel.Gasto.Id,
                     Monto = (double)gastoViewModel.Gasto.Monto,
+                    Descripcion = gastoViewModel.Gasto.Descripcion,
                     Fecha = Convert.ToDateTime(gastoViewModel.Gasto.Fecha),
                     Servicio = new ServicioDto()
                     {
@@ -212,6 +216,7 @@ namespace MyWalletApp.Controllers
                     {
                         Id = gasto.Id,
                         Monto = gasto.Monto,
+                        Descripcion = gasto.Descripcion,
                         Fecha = gasto.Fecha,
                         Servicio = new ServicioDto()
                         {

@@ -13,6 +13,7 @@ namespace MyWalletApp.Logic.Models
         public int Id { get; set; }
         [DisplayName("Nombre Servicio")]
         public string Nombre { get; set; }
+        public double Monto { get; set; }
         [DisplayName("Fecha de pago")]
         public DateTime FechaPago { get; set; }
         [DisplayName("Tipo de Pago")]

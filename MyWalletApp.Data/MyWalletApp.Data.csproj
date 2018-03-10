@@ -63,6 +63,10 @@
     <Compile Include="Migrations\201802262122377_EsPorMesColumn.Designer.cs">
       <DependentUpon>201802262122377_EsPorMesColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803100333366_NewColumns.cs" />
+    <Compile Include="Migrations\201803100333366_NewColumns.Designer.cs">
+      <DependentUpon>201803100333366_NewColumns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyWalletContext.cs" />
     <Compile Include="Entities\Servicio.cs" />
@@ -86,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802262122377_EsPorMesColumn.resx">
       <DependentUpon>201802262122377_EsPorMesColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803100333366_NewColumns.resx">
+      <DependentUpon>201803100333366_NewColumns.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

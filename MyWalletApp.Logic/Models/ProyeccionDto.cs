@@ -8,7 +8,7 @@ namespace MyWalletApp.Logic.Models
 {
     public class ProyeccionDto
     {
-        public int y { get; set; }
+        public double y { get; set; }
         public string fechaPago { get; set; }
         public bool esPorMes { get; set; }
         public string label { get; set; }

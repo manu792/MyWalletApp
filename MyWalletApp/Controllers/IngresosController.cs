@@ -78,6 +78,7 @@ namespace MyWalletApp.Controllers
                     {
                         Id = ingreso.Id,
                         Monto = ingreso.Monto,
+                        Descripcion = ingreso.Descripcion,
                         Fecha = ingreso.Fecha,
                         Fuente = new FuenteDto()
                         {
@@ -114,6 +115,7 @@ namespace MyWalletApp.Controllers
                 manager.AddIngreso(new IngresoDto()
                 {
                     Monto = (double)ingresoViewModel.Ingreso.Monto,
+                    Descripcion = ingresoViewModel.Ingreso.Descripcion,
                     Fuente = new FuenteDto()
                     {
                         Id = ingresoViewModel.Ingreso.Fuente.Id
@@ -148,6 +150,7 @@ namespace MyWalletApp.Controllers
                     {
                         Id = ingreso.Id,
                         Monto = ingreso.Monto,
+                        Descripcion = ingreso.Descripcion,
                         Fuente = ingreso.Fuente,
                         Fecha = ingreso.Fecha,
                     },
@@ -170,6 +173,7 @@ namespace MyWalletApp.Controllers
                 {
                     Id = ingresoViewModel.Ingreso.Id,
                     Monto = (double)ingresoViewModel.Ingreso.Monto,
+                    Descripcion = ingresoViewModel.Ingreso.Descripcion,
                     Fuente = new FuenteDto()
                     {
                         Id = ingresoViewModel.Ingreso.Fuente.Id
@@ -198,6 +202,7 @@ namespace MyWalletApp.Controllers
                     {
                         Id = ingreso.Id,
                         Monto = ingreso.Monto,
+                        Descripcion = ingreso.Descripcion,
                         Fecha = ingreso.Fecha,
                         Fuente = new FuenteDto()
                         {

@@ -66,6 +66,9 @@
                     @Html.Label("Servicio")
                 </th>
                 <th>
+                    @Html.Label("Descripcion")
+                </th>
+                <th>
                     @Html.Label("Fecha")
                 </th>
                 <th></th>
@@ -73,28 +76,31 @@
 
             @foreach (var item in Model.Transacciones)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Monto)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Servicio.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Servicio.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                </td>
+            </tr>
             }
 
         </table>
-        <p>
-            Total en Gastos: @Model.Transacciones.Sum(item => item.Monto)
-        </p>
+        <h2>
+            Total en Gastos: @Model.Transacciones.Sum(item => item.Monto) colones
+        </h2>
     }
 </body>
 </html>

@@ -29,10 +29,10 @@ namespace MyWalletApp.Controllers
                 Proyecciones = servicios.Select(s => new ProyeccionDto()
                 {
                     id = s.Id,
-                    y = s.Id,
+                    y = s.Monto,
                     fechaPago = s.FechaPago.Day.ToString(),
                     esPorMes = s.EsPorMes,
-                    label = $"{s.Id} colones",
+                    label = $"{s.Monto} colones",
                     indexLabel = s.Nombre
                 }).ToList()
             };
@@ -56,10 +56,10 @@ namespace MyWalletApp.Controllers
                 Proyecciones = servicios.Select(s => new ProyeccionDto()
                 {
                     id = s.Id,
-                    y = s.Id,
+                    y = s.Monto,
                     fechaPago = s.FechaPago.Day.ToString(),
                     esPorMes = s.EsPorMes,
-                    label = $"{s.Id} colones",
+                    label = $"{s.Monto} colones",
                     indexLabel = s.Nombre
                 }).ToList()
             };

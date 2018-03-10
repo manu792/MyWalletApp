@@ -12,39 +12,46 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Agregar Ingreso</h4>
-        <hr />
-        @Html.ValidationSummary(true, "Hubo un problem al tratar de agregar el ingreso. Intente de nuevo mas tarde", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ingreso.Monto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Ingreso.Monto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Ingreso.Monto, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ingreso.Fuente.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Ingreso.Fuente.Id, Model.FuentesDisponibles, new { @class = "form-control" })
-            </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ingreso.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Ingreso.Fecha, new { placeholder = "mm/dd/yyyy", @class = "form-control normal-datepicker" })
-                @Html.ValidationMessageFor(model => model.Ingreso.Fecha, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Agregar" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>Agregar Ingreso</h4>
+    <hr />
+    @Html.ValidationSummary(true, "Hubo un problem al tratar de agregar el ingreso. Intente de nuevo mas tarde", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ingreso.Monto, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Ingreso.Monto, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Ingreso.Monto, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ingreso.Fuente.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Ingreso.Fuente.Id, Model.FuentesDisponibles, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ingreso.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Ingreso.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ingreso.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Ingreso.Fecha, new { placeholder = "mm/dd/yyyy", @class = "form-control normal-datepicker" })
+            @Html.ValidationMessageFor(model => model.Ingreso.Fecha, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Agregar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>

@@ -51,6 +51,7 @@ namespace MyWalletApp.Data
                         {
                             Id = 1,
                             Nombre = "Netflix",
+                            Monto = 4500,
                             FechaPago = Convert.ToDateTime("2018-02-24"),
                             EsPorMes = true
                         },
@@ -58,6 +59,7 @@ namespace MyWalletApp.Data
                         {
                             Id = 2,
                             Nombre = "HBO GO",
+                            Monto = 4900,
                             FechaPago = Convert.ToDateTime("2018-02-20"),
                             EsPorMes = true
                         },
@@ -65,6 +67,7 @@ namespace MyWalletApp.Data
                         {
                             Id = 3,
                             Nombre = "Agua",
+                            Monto = 9800,
                             FechaPago = Convert.ToDateTime("2018-02-15"),
                             EsPorMes = true
                         },
@@ -72,6 +75,7 @@ namespace MyWalletApp.Data
                         {
                             Id = 4,
                             Nombre = "Luz",
+                            Monto = 26300,
                             FechaPago = Convert.ToDateTime("2018-02-02"),
                             EsPorMes = true
                         },
@@ -79,6 +83,7 @@ namespace MyWalletApp.Data
                         {
                             Id = 5,
                             Nombre = "Celular",
+                            Monto = 28000,
                             FechaPago = Convert.ToDateTime("2018-02-15"),
                             EsPorMes = true
                         },
@@ -86,6 +91,7 @@ namespace MyWalletApp.Data
                         {
                             Id = 6,
                             Nombre = "Cable",
+                            Monto = 35000,
                             FechaPago = Convert.ToDateTime("2018-02-23"),
                             EsPorMes = true
                         },
@@ -93,6 +99,7 @@ namespace MyWalletApp.Data
                         {
                             Id = 7,
                             Nombre = "Prestamo carro",
+                            Monto = 250000,
                             FechaPago = Convert.ToDateTime("2018-02-15"),
                             EsPorMes = false
                         }

@@ -26,6 +26,7 @@ namespace MyWalletApp.Logic
             {
                 Id = i.Id,
                 Monto = i.Monto,
+                Descripcion = i.Descripcion,
                 Fuente = new FuenteDto()
                 {
                     Id = i.Fuente.Id,
@@ -48,6 +49,7 @@ namespace MyWalletApp.Logic
             {
                 Id = i.Id,
                 Monto = i.Monto,
+                Descripcion = i.Descripcion,
                 Fuente = new FuenteDto()
                 {
                     Id = i.Fuente.Id,
@@ -62,6 +64,7 @@ namespace MyWalletApp.Logic
             repository.AddIngreso(new Ingreso()
             {
                 Monto = ingreso.Monto,
+                Descripcion = ingreso.Descripcion,
                 FuenteId = ingreso.Fuente.Id,
                 Fecha = Convert.ToDateTime(ingreso.Fecha)
             });
@@ -80,6 +83,7 @@ namespace MyWalletApp.Logic
             {
                 Id = ingreso.Id,
                 Monto = ingreso.Monto,
+                Descripcion = ingreso.Descripcion,
                 Fuente = new FuenteDto()
                 {
                     Id = ingreso.Fuente.Id,
@@ -96,7 +100,8 @@ namespace MyWalletApp.Logic
                 Id = ingreso.Id,
                 Fecha = Convert.ToDateTime(ingreso.Fecha),
                 FuenteId = ingreso.Fuente.Id,
-                Monto = ingreso.Monto
+                Monto = ingreso.Monto,
+                Descripcion = ingreso.Descripcion
             });
 
             return ingreso;

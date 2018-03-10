@@ -26,6 +26,7 @@ namespace MyWalletApp.Logic
             {
                 Id = i.Id,
                 Monto = i.Monto,
+                Descripcion = i.Descripcion,
                 Servicio = new ServicioDto()
                 {
                     Id = i.Servicio.Id,
@@ -48,6 +49,7 @@ namespace MyWalletApp.Logic
             {
                 Id = i.Id,
                 Monto = i.Monto,
+                Descripcion = i.Descripcion,
                 Servicio = new ServicioDto()
                 {
                     Id = i.Servicio.Id,
@@ -68,6 +70,7 @@ namespace MyWalletApp.Logic
             {
                 Id = gasto.Id,
                 Monto = gasto.Monto,
+                Descripcion = gasto.Descripcion,
                 Servicio = new ServicioDto()
                 {
                     Id = gasto.Servicio.Id,
@@ -82,6 +85,7 @@ namespace MyWalletApp.Logic
             repository.AddGasto(new Gasto()
             {
                 Monto = gasto.Monto,
+                Descripcion = gasto.Descripcion,
                 ServicioId = 1,
                 Fecha = Convert.ToDateTime(gasto.Fecha)
             });
@@ -95,6 +99,7 @@ namespace MyWalletApp.Logic
             {
                 Id = gasto.Id,
                 Monto = gasto.Monto,
+                Descripcion = gasto.Descripcion,
                 ServicioId = 1,
                 Fecha = Convert.ToDateTime(gasto.Fecha)
             });

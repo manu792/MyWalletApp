@@ -8,12 +8,15 @@
 <h2>Servicios/Subscripciones</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nuevo Servicio", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Monto)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FechaPago)
@@ -27,6 +30,9 @@
             @Html.DisplayFor(modelItem => item.Nombre)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Monto)
+        </td>
+        <td>
             @if (item.EsPorMes)
             {
                 @Html.DisplayFor(modelItem => item.FechaPago.Day)<span> de cada mes</span>
@@ -37,9 +43,9 @@
             }
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

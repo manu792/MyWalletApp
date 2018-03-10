@@ -15,6 +15,7 @@ namespace MyWalletApp.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public double Monto { get; set; }
+        public string Descripcion { get; set; }
         public int ServicioId { get; set; }
         public DateTime Fecha { get; set; }
 
