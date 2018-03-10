@@ -59,7 +59,10 @@
             });
 
             $(".normal-datepicker").datepicker({
-                dateFormat: "dd/mm/yy"
+                dateFormat: "dd/mm/yy",
+                maxDate: new Date(),
+                changeMonth: true,
+                changeYear: true
             });
         });
     </script>
