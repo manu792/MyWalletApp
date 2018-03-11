@@ -20,7 +20,7 @@ namespace MyWalletApp.Logic
 
         public IEnumerable<FuenteDto> GetAllFuentes()
         {
-            var fuentes = repository.GetAllFuentes();
+            var fuentes = repository.GetAllFuentes().OrderBy(f => f.Nombre.ToLower().Equals("otro")).ThenBy(f => f.Id);
 
             return fuentes.Select(i => new FuenteDto()
             {

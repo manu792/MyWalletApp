@@ -54,7 +54,7 @@ namespace MyWalletApp.Controllers
                 {
                     id = s.Id,
                     y = s.Monto,
-                    fechaPago = s.EsPorMes ? $"{s.FechaPago} de cada mes" : $"{s.FechaPago} de cada año",
+                    fechaPago = s.EsPorMes ? $"{s.FechaPago}" : $"{s.FechaPago}",
                     esPorMes = s.EsPorMes,
                     label = $"{s.Monto} colones",
                     indexLabel = s.Nombre

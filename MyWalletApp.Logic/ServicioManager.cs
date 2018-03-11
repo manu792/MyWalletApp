@@ -21,7 +21,7 @@ namespace MyWalletApp.Logic
 
         public IEnumerable<ServicioDto> GetAllServicios()
         {
-            var servicios = repository.GetAllServicios();
+            var servicios = repository.GetAllServicios().OrderBy(s => s.Nombre.ToLower().Equals("otro")).ThenBy(s => s.Id);
 
             return servicios.Select(s => new ServicioDto()
             {
