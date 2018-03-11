@@ -175,6 +175,7 @@
     <Compile Include="Controllers\GastosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngresosController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ProyeccionController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -225,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyWalletApp.Logic\MyWalletApp.Logic.csproj">

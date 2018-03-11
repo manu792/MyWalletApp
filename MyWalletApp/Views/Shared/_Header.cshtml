@@ -1,15 +1,20 @@
 ﻿<!-- Side Navigation -->
-<nav class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-center" style="display:none" id="mySidebar">
-    <h1 class="w3-xxxlarge w3-text-theme">Navegacion</h1>
-    <button class="w3-bar-item w3-button" onclick="w3_close()">Cerrar <i class="fa fa-remove"></i></button>
-    <a href="@Url.Action("Index", "Home")" class="w3-bar-item w3-button">Home</a>
-    <a href="@Url.Action("Index", "Ingresos")" class="w3-bar-item w3-button">Ingresos</a>
-    <a href="@Url.Action("Index", "Gastos")" class="w3-bar-item w3-button">Gastos</a>
-    <a href="@Url.Action("Index", "Proyeccion")" class="w3-bar-item w3-button">Proyeccion</a>
-    <a href="@Url.Action("Index", "Servicio")" class="w3-bar-item w3-button">Servicios</a>
-    <a href="@Url.Action("Index", "Fuente")" class="w3-bar-item w3-button">Fuente</a>
-    <a href="@Url.Action("Index", "Comparativa")" class="w3-bar-item w3-button">Comparativa</a>
-</nav>
+<div class="row">
+    <div class="col-md-1">
+        <nav class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-center" style="display:none" id="mySidebar">
+            <h1 class="w3-xxxlarge w3-text-theme">Navegacion</h1>
+            <button class="w3-bar-item w3-button" onclick="w3_close()">Cerrar <i class="fa fa-remove"></i></button>
+            <a href="@Url.Action("Index", "Home")" class="w3-bar-item w3-button">Home</a>
+            <a href="@Url.Action("Index", "Ingresos")" class="w3-bar-item w3-button">Ingresos</a>
+            <a href="@Url.Action("Index", "Gastos")" class="w3-bar-item w3-button">Gastos</a>
+            <a href="@Url.Action("Index", "Proyeccion")" class="w3-bar-item w3-button">Proyeccion</a>
+            <a href="@Url.Action("Index", "Servicio")" class="w3-bar-item w3-button">Servicios</a>
+            <a href="@Url.Action("Index", "Fuente")" class="w3-bar-item w3-button">Fuente</a>
+            <a href="@Url.Action("Index", "Comparativa")" class="w3-bar-item w3-button">Comparativa</a>
+        </nav>
+    </div>
+</div>
+
 
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">
@@ -17,5 +22,18 @@
     <div class="w3-center">
         <h4>MANTEN EL CONTROL DE TUS INGRESOS Y GASTOS</h4>
         <h1 class="w3-xxxlarge w3-animate-bottom">DE UNA FORMA MAS SENCILLA</h1>
+        <ul>
+            <li id="noti_Container">
+                <div id="noti_Counter"></div>
+                <i id="noti_Button" class="fa fa-bell" style="font-size:30px"></i>
+                @*<div id="noti_Button"></div>*@
+                <div id="notifications">
+                    <h3>Notifications</h3>
+                    <div id="notification_list" style="height:300px;">
+                        <h3>Proximos Pagos</h3>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </header>

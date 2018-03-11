@@ -4,69 +4,76 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 id="btn">Proyecciones</h2>
+<!DOCTYPE html>
 
-<div class="row">
-    <div class="col-md-6">
-        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-        <label>Total necesario para cubrir gastos del proximo mes: <span id="totalGastos">@Model.Proyecciones.Sum(p => p.y)</span> colones</label>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Proyeccion</title>
+</head>
+<body>
+    <h2 id="btn">Proyecciones</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+            <label>Total necesario para cubrir gastos del proximo mes: <span id="totalGastos">@Model.Proyecciones.Sum(p => p.y)</span> colones</label>
+        </div>
+        <div class="col-md-6">
+            <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+            <label>Total Ahorro: <span id="totalAhorros">0</span> colones</label>
+        </div>
     </div>
-    <div class="col-md-6">
-        <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
-        <label>Total Ahorro: <span id="totalAhorros">0</span> colones</label>
-    </div>
-</div>
 
-@using (Html.BeginForm())
-{
-    <table class="table">
-        <tr>
-            <th>
-                @Html.Label("Servicio")
-            </th>
-            <th>
-                @Html.Label("Monto")
-            </th>
-            <th>
-                @Html.Label("Fecha")
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.Proyecciones)
-        {
+    @using (Html.BeginForm())
+    {
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.indexLabel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.y)
-                </td>
-                <td>
-                    @if (item.esPorMes)
-                    {
-                        @Html.DisplayFor(modelItem => item.fechaPago)<span> de cada mes</span>
-                    }
-                    else
-                    {
-                        @Html.DisplayFor(modelItem => item.fechaPago)<span> de cada año</span>
-                    }
-                </td>
-                <td>
-                    <button onclick="submitBtn(@Json.Encode(item))" type="button" class="btn btn-link">Eliminar</button>
-                    @*@Html.ActionLink("Eliminar", "Delete", new { id = item.id })*@
-                </td>
+                <th>
+                    @Html.Label("Servicio")
+                </th>
+                <th>
+                    @Html.Label("Monto")
+                </th>
+                <th>
+                    @Html.Label("Fecha")
+                </th>
+                <th></th>
             </tr>
-        }
-    </table>
-}
 
-<!-- Scripts -->
-@section scripts{
-    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-    <script src="~/Scripts/app.js"></script>
-    <script>
+            @foreach (var item in Model.Proyecciones)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.indexLabel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.y)
+                    </td>
+                    <td>
+                        @if (item.esPorMes)
+                        {
+                            @Html.DisplayFor(modelItem => item.fechaPago)<span> de cada mes</span>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.fechaPago)<span> de cada año</span>
+                        }
+                    </td>
+                    <td>
+                        <button onclick="submitBtn(@Json.Encode(item))" type="button" class="btn btn-link">Eliminar</button>
+                        @*@Html.ActionLink("Eliminar", "Delete", new { id = item.id })*@
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+
+    <!-- Scripts -->
+    @section scripts{
+        <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+        <script src="~/Scripts/app.js"></script>
+        <script>
         var options = {
                 animationEnabled: true,
                 title: {
@@ -131,6 +138,7 @@
                 }]
             };
             $("#chartContainer2").CanvasJSChart(options2);
-    </script>
-}
-
+        </script>
+    }
+</body>
+</html>

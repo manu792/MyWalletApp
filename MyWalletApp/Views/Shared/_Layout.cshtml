@@ -34,22 +34,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         $(function () {
-            $.validator.addMethod('date',
-                function (value, element) {
-                    if (this.optional(element)) {
-                        return true;
-                    }
-
-                    var ok = true;
-                    try {
-                        $.datepicker.parseDate('dd/mm/yy', value);
-                    }
-                    catch (err) {
-                        ok = false;
-                    }
-                    return ok;
-                });
-
             $(".datepicker").datepicker({
                 dateFormat: "dd",
                 defaultDate: new Date(new Date().getFullYear(), 4, 1)
@@ -143,6 +127,85 @@
                 }
             }
         }
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Calls API to retrieve notifications if any exists
+            var notificationCount = 0;
+            var notificationSeen = false;
+
+            $.ajax({
+                url: '/notification/getnotifications/',
+                type: 'GET',
+                success: function (notifications) {
+                    var count = notifications.length;
+                    if (count > notificationCount && !notificationSeen) {
+                        $('#noti_Counter')
+                            .css({ opacity: 0 })
+                            .text(count)
+                            .css({ top: '-10px' })
+                            .animate({ top: '-2px', opacity: 1 }, 500);
+                    } else {
+                        $('#noti_Counter')
+                            .css({ opacity: 0 })
+                            .text('0')
+                            .css({ top: '-10px' })
+                            .animate({ top: '-2px', opacity: 1 }, 500);
+                    }
+
+                    var details = '<ul>';
+
+                    for (var i = 0; i < notifications.length; i++) {
+                        if (notifications[i].EsPorMes) {
+                            details += '<li>' + notifications[i].Nombre + ' | <span style="color: red">Fecha de pago: ' + notifications[i].FechaPago + ' de cada mes</span></li>'
+                        } else {
+                            details += '<li>' + notifications[i].Nombre + ' | <span style="color: red">Fecha de pago: ' + notifications[i].FechaPago + ' de cada año</span></li>'
+                        }
+                    }
+
+                    details += '</ul>';
+                    $("#notification_list").append(details);
+                }, error: function () {
+                    alert('Hubo un problema al tratar de obtener las notificaciones.');
+                    $('#noti_Counter')
+                        .css({ opacity: 0 })
+                        .text('')
+                        .css({ top: '-10px' })
+                        .animate({ top: '-2px', opacity: 1 }, 500);
+                }
+            });
+
+            $('#noti_Button').click(function () {
+
+                // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
+                $('#notifications').fadeToggle('fast', 'linear', function () {
+                    if ($('#notifications').is(':hidden')) {
+                        //$('#noti_Button').css('background-color', '#2E467C');
+                    } else {
+                        notificationSeen = true;
+                    }
+                });
+
+                $('#noti_Counter').fadeOut('slow');                 // HIDE THE COUNTER.
+
+                return false;
+            });
+
+            // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
+            $(document).click(function () {
+                $('#notifications').hide();
+
+                // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
+                if ($('#noti_Counter').is(':hidden')) {
+                    // CHANGE BACKGROUND COLOR OF THE BUTTON.
+                    //$('#noti_Button').css('background-color', '#2E467C');
+                }
+            });
+
+            $('#notifications').click(function () {
+                return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
+            });
+        });
     </script>
     @RenderSection("scripts", required: false)
 </body>

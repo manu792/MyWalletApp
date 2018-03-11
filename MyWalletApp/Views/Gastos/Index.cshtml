@@ -16,13 +16,13 @@
     {
         if (Model.ProximosPagos.Count() > 0)
         {
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
+            <div id="not" class="row">
+                <div id="notifications_pagos" class="col-md-6 col-md-offset-3">
                     <h2>@Html.DisplayNameFor(model => model.ProximosPagos)</h2>
                     <ul>
                         @foreach (var item in Model.ProximosPagos)
                         {
-                        <li>
+                        <li id="notifications_li">
                             @if (item.EsPorMes)
                             {
                                 <h3>@Html.DisplayFor(model => item.Nombre) | <span style="color: red">Fecha de pago: @Html.DisplayFor(model => item.FechaPago) de cada mes</span></h3>
