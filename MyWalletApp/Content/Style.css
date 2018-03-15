@@ -14,10 +14,6 @@ footer {
     z-index: 100;
 }
 
-#not {
-    margin-bottom: 100px;
-}
-
 #notifications_pagos #notifications_li {
     float: none;
 }
@@ -27,7 +23,6 @@ ul {
     list-style: none;
     margin: 0;
     padding: 12px 10px;
-    height: 21px;
     text-align: center;
 }
 

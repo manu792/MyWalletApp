@@ -1,4 +1,6 @@
 ﻿function submitBtn(item) {
+    var baseUrl = $('base').attr('href');
+
     var ev = event;
     if (ev.target.innerHTML === 'Eliminar') {
         ev.target.innerHTML = 'Agregar';
@@ -6,7 +8,7 @@
         ev.target.innerHTML = 'Eliminar';
     }
     $.ajax({
-        url: '/proyeccion/delete/' + item.id,
+        url: baseUrl + '/proyeccion/delete/' + item.id,
         type: 'POST',
         success: function (result) {
             console.log(result);
