@@ -26,7 +26,7 @@ namespace MyWalletApp.Controllers
 
             var montoReal = ingresos.Sum(i => i.Monto) - gastos.Sum(g => g.Monto);
 
-            ViewBag.Billetera = montoReal;
+            ViewBag.Billetera = string.Format("{0:n0}", montoReal);
 
             return View();
         }

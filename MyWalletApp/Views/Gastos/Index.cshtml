@@ -107,7 +107,7 @@
 
         </table>
         <h2>
-            Total en Gastos: @Model.Transacciones.Sum(item => item.Monto) colones
+            Total en Gastos: @string.Format("{0:n0}", Model.Transacciones.Sum(item => item.Monto)) colones
         </h2>
     }
 </body>
