@@ -17,13 +17,13 @@
     <div class="row">
         <div class="col">
             <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-            <label>Total necesario para cubrir gastos del proximo mes: <span id="totalGastos">@Model.Proyecciones.Sum(p => p.y)</span> colones</label>
+            <label>Total necesario para cubrir gastos del proximo mes: ₡<span id="totalGastos">@Model.Proyecciones.Sum(p => p.y)</span></label>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
-            <label>Total Ahorro: <span id="totalAhorros">0</span> colones</label>
+            <label>Total Ahorro: ₡<span id="totalAhorros">0</span></label>
         </div>
     </div>
 
@@ -98,7 +98,7 @@
                 },
                 data: [{
                     indexLabelFontSize: 26,
-                    toolTipContent: "<span style=\"color:#62C9C3\">{indexLabel}:</span> <span style=\"color:#CD853F\"><strong>{y} colones. Fecha de pago: {fechaPago}</strong></span>",
+                    toolTipContent: "<span style=\"color:#62C9C3\">{indexLabel}:</span> <span style=\"color:#CD853F\"><strong>₡{y}. Fecha de pago: {fechaPago}</strong></span>",
                     indexLabelPlacement: "inside",
                     indexLabelFontColor: "white",
                     indexLabelFontWeight: 600,
@@ -131,7 +131,7 @@
                 },
                 data: [{
                     indexLabelFontSize: 26,
-                    toolTipContent: "<span style=\"color:#62C9C3\">{indexLabel}:</span> <span style=\"color:#CD853F\"><strong>{y} colones. Fecha de pago: {fechaPago}</strong></span>",
+                    toolTipContent: "<span style=\"color:#62C9C3\">{indexLabel}:</span> <span style=\"color:#CD853F\"><strong>₡{y}. Fecha de pago: {fechaPago}</strong></span>",
                     indexLabelPlacement: "inside",
                     indexLabelFontColor: "white",
                     indexLabelFontWeight: 600,
