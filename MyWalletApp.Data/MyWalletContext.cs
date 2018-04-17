@@ -10,7 +10,7 @@ namespace MyWalletApp.Data
 {
     public class MyWalletContext : DbContext
     {
-        public MyWalletContext() : base("MyWalletDBProd")
+        public MyWalletContext() : base("MyWalletDBAzure")
         {
             Database.SetInitializer(new MyWalletDatabaseInitializer());
         }
